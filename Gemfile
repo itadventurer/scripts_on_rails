@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
+gem 'bootstrap-sass', '2.0.4'
+gem 'devise', '~> 2.2.0'
+gem 'cancan', '~> 1.6.8'
+gem 'yaml_db', "~> 0.2.3"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -8,6 +12,12 @@ gem 'rails', '3.2.12'
 gem 'sqlite3'
 
 
+group :development do
+	# Annotate zeigt die Modellanotationen in den Controllern an
+	gem 'annotate', '2.5.0'
+	# wirble macht die Konsole hübsch
+	gem 'wirble', "~> 0.1.3"
+end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -21,6 +31,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

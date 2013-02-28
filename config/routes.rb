@@ -1,4 +1,5 @@
 ScriptsOnRails::Application.routes.draw do
+  root :to => "static#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
