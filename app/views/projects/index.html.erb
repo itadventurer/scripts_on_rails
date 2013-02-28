@@ -1,29 +1,25 @@
-<h1>Listing projects</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Language</th>
-    <th>Description</th>
-    <th>Cli</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @projects.each do |project| %>
-  <tr>
-    <td><%= project.name %></td>
-    <td><%= project.language %></td>
-    <td><%= project.description %></td>
-    <td><%= project.cli %></td>
-    <td><%= link_to 'Show', project %></td>
-    <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Project', new_project_path %>
+<% provide(:title, t('projects.list'))%>
+<div class="span12">
+  <%= link_to t('projects.new'), new_project_path, class: 'btn' %>
+  <% @projects.each do |project| %>
+    <div>
+      <h3><%= link_to project.name, project %></h3>
+      <p><%= project.description %></p>
+      <small class="muted"><%= t 'projects.language'%>: <%= project.language %> | <%= t 'projects.cli' %>: <%= project.cli %></small>
+      <% if can? :update, project %>
+        <div class="btn-group">
+          <%=link_to project_path(project), class:"btn" do %>
+            <i class="icon-eye-open"></i>
+          <% end %>
+          <%=link_to edit_project_path(project), class:"btn" do %>
+            <i class="icon-pencil"></i>
+          <% end %>
+          <%=link_to project_path(project), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
+            <i class="icon-trash"></i>
+          <% end %>
+        </div>
+      <% end %>
+      <hr />
+    </div>
+  <% end %>
+</div>

@@ -11,4 +11,12 @@
 
 class Script < ActiveRecord::Base
   attr_accessible :name, :project_id
+  belongs_to :project
+
+	validates :name, 
+		presence: true, 
+		# Länge zwischen 5 und 50 Zeichen
+		length: { minimum: 5, maximum:50 },
+		# Name einzigartig
+		uniqueness: { case_sensitive: false }
 end

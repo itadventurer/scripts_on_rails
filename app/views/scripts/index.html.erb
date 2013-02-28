@@ -14,7 +14,7 @@
     <td><%= script.project_id %></td>
     <td><%= script.name %></td>
     <td><%= link_to 'Show', script %></td>
-    <td><%= link_to 'Edit', edit_script_path(script) %></td>
+    <td><%= link_to 'Edit', edit_project_script_path(script) %></td>
     <td><%= link_to 'Destroy', script, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
@@ -22,4 +22,4 @@
 
 <br />
 
-<%= link_to 'New Script', new_script_path %>
+<%= link_to 'New Script', new_project_script_path %>

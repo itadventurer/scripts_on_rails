@@ -4,6 +4,10 @@
 en:
   users:
     sign_in: "Log in"
+  projects:
+    language: "Language"
+    cli: "CLI"
   misc:
     appname: "ScriptsOnRails"
+    sure?: "Are you sure?"
   

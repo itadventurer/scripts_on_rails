@@ -1,16 +1,15 @@
 ScriptsOnRails::Application.routes.draw do
-  resources :scripts
 
 
-  resources :members
-
-
-  resources :projects
+  match 'projects_list' => 'projects#all'
+  resources :projects do
+    resources :members
+    resources :scripts
+  end
 
 
   devise_for :users
 
-  resources :users
 
 
   root :to => "static#index"

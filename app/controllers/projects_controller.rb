@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  load_and_authorize_resource
+  before_filter :authenticate_user!
   # GET /projects
   # GET /projects.json
   def index
@@ -10,13 +12,18 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def all
+    @projects=Project.all
+    render 'index'
+  end
+
   # GET /projects/1
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { redirect_to project_scripts_path(@project) }# show.html.erb
       format.json { render json: @project }
     end
   end
@@ -41,6 +48,11 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(params[:project])
+    m=@project.members.new
+    m.user=current_user
+    m.is_admin=true
+    m.can_create=true
+    m.save
 
     respond_to do |format|
       if @project.save

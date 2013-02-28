@@ -13,4 +13,22 @@
 
 class Project < ActiveRecord::Base
   attr_accessible :cli, :description, :language, :name
+
+  has_many :scripts
+  has_many :members
+  has_many :users, through: :members
+  
+	validates :name, 
+		presence: true, 
+		# Länge zwischen 5 und 50 Zeichen
+		length: { minimum: 5, maximum:50 },
+		# Name einzigartig
+		uniqueness: { case_sensitive: false }
+
+  validates :description,
+    presence: true
+
+  validates :language,
+    presence:true 
+
 end
