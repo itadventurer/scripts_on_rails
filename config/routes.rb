@@ -1,4 +1,13 @@
 ScriptsOnRails::Application.routes.draw do
+  resources :scripts
+
+
+  resources :members
+
+
+  resources :projects
+
+
   devise_for :users
 
   resources :users
