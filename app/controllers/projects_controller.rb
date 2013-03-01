@@ -1,10 +1,10 @@
 class ProjectsController < ApplicationController
-  load_and_authorize_resource
   before_filter :authenticate_user!
+  authorize_resource
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = current_user.projects
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
 
   def all
     @projects=Project.all
+    authorize! :list_all, Project
     render 'index'
   end
 
@@ -42,6 +43,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
     @project = Project.find(params[:id])
+    authorize! :update, @project
   end
 
   # POST /projects

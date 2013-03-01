@@ -1,24 +1,31 @@
 <% provide(:title, t('projects.list'))%>
 <div class="span12">
-  <%= link_to t('projects.new'), new_project_path, class: 'btn btn-primary' %>
+  <%= link_to t('projects.new'), new_project_path, class: 'btn btn-primary' if can? :create, Project%>
   <% @projects.each do |project| %>
     <div>
       <h3><%= link_to project.name, project %></h3>
       <p><%= project.description %></p>
       <small class="muted"><%= t 'projects.language'%>: <%= project.language %> | <%= t 'projects.cli' %>: <%= project.cli %></small>
-      <% if can? :update, project %>
-        <div class="btn-group">
-          <%=link_to project_path(project), class:"btn" do %>
-            <i class="icon-eye-open"></i>
-          <% end %>
+      <div class="btn-group">
+        <%=link_to project_path(project), class:"btn" do %>
+          <i class="icon-eye-open"></i>
+        <% end %>
+        <% if can? :update, project %>
           <%=link_to edit_project_path(project), class:"btn" do %>
             <i class="icon-pencil"></i>
           <% end %>
+        <% end %>
+        <% if can? :read, project %>
+          <%=link_to project_members_path(project), class:"btn" do %>
+            <i class="icon-user"></i>
+          <% end %>
+        <% end %>
+        <% if can? :destroy, project %>
           <%=link_to project_path(project), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
             <i class="icon-trash"></i>
           <% end %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
       <hr />
     </div>
   <% end %>

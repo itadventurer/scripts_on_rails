@@ -11,16 +11,10 @@
         <div class="nav-collapse collapse pull-left">
           <ul class="nav">
             <li class="">
-            <a href="./index.html">Home</a>
+            <%= link_to t('header.home'), root_path %>
             </li>
             <li class="">
-            <a href="./getting-started.html">Get started</a>
-            </li>
-            <li class="">
-            <a href="./scaffolding.html">Scaffolding</a>
-            </li>
-            <li class="active">
-            <a href="./base-css.html">Base CSS</a>
+            <%= link_to t('header.help'), help_path %>
             </li>
           </ul>
         </div>

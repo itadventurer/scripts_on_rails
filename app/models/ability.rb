@@ -29,15 +29,20 @@ class Ability
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
     #
-    user ||= User.new
-    can :manage, Project do |p|
-      cannot :destroy, p
-    end
+    can :read, Project, :members => { user_id: user.id } # everybody can read his Projects
+    can :manage, Project, :members => { user_id: user.id, is_admin: true }
+    cannot [:destroy,:create,:list_all], Project
+
+    can [:read,:run], Script, :project => {:members => { user_id: user.id}}
+    can :manage, Script, :project => {:members => { user_id: user.id, can_create: true }}
+    cannot :destroy, Script
+    can :manage, Script, :project => {:members => { user_id: user.id, is_admin: true }}
 
     if user.is_admin?
-      can :manage, :all
-      can :list_all, Project
+     # can :manage, :all
+     # can :list_all, Project
     end
+
 
   end
 end

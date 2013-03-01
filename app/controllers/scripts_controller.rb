@@ -1,9 +1,14 @@
 class ScriptsController < ApplicationController
+  before_filter :authenticate_user!
+
+  include ApplicationHelper
+  
   # GET /scripts
   # GET /scripts.json
   def index
     @project=Project.find(params[:project_id])
     @scripts = @project.scripts
+    authorize! :show, @project
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,6 +21,7 @@ class ScriptsController < ApplicationController
   def show
     @project=Project.find(params[:project_id])
     @script = @project.scripts.find(params[:id])
+    authorize! :show, @script
 
     respond_to do |format|
       format.html # show.html.erb
@@ -28,6 +34,7 @@ class ScriptsController < ApplicationController
   def new
     @project=Project.find(params[:project_id])
     @script = @project.scripts.new
+    authorize! :create, @script
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,6 +46,7 @@ class ScriptsController < ApplicationController
   def edit
     @project=Project.find(params[:project_id])
     @script = @project.scripts.find(params[:id])
+    authorize! :create, @script
   end
 
   # POST /scripts

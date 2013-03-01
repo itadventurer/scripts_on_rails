@@ -14,6 +14,7 @@ ScriptsOnRails::Application.routes.draw do
 
 
 
+  match 'help' => 'static#help'
   root :to => "static#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
