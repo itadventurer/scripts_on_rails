@@ -1,5 +1,6 @@
 class ScriptsController < ApplicationController
   before_filter :authenticate_user!
+  authorize_resource
 
   include ApplicationHelper
   
@@ -74,7 +75,7 @@ class ScriptsController < ApplicationController
 
     respond_to do |format|
       if @script.update_attributes(params[:script])
-        format.html { redirect_to project_script_path(@project,@script), notice: 'Script was successfully updated.' }
+        format.html { redirect_to edit_project_script_path(@project,@script), notice: 'Script was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

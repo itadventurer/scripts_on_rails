@@ -2,6 +2,9 @@ ScriptsOnRails::Application.routes.draw do
 
 
   resources :languages
+  scope 'admin' do
+    resources :users
+  end
 
 
   match 'projects_list' => 'projects#all'
