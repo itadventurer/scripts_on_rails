@@ -21,9 +21,15 @@
   </div>
   <div class="field">
     <%= f.label :code %><br />
-    <%= f.text_area :code %>
+    <div id="editor"><%=@script.code%></div>
   </div>
   <div class="actions">
     <%= f.submit class: 'btn' %>
   </div>
 <% end %>
+<script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+  var editor=ace.edit("editor");
+  editor.setTheme("ace/theme/monokai");
+  editor.getSession().setMode("ace/mode/<%=@project.language%>");
+</script>

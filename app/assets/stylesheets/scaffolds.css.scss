@@ -9,3 +9,10 @@
 .field_with_errors {
   @extend .control-group.error
 }
+textarea {
+  width: 100%
+}
+#editor{
+  width:500px;
+  height:100px;
+}

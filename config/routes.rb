@@ -1,6 +1,9 @@
 ScriptsOnRails::Application.routes.draw do
 
 
+  resources :languages
+
+
   match 'projects_list' => 'projects#all'
   resources :projects do
     resources :members

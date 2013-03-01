@@ -7,9 +7,9 @@ en:
   projects:
     language: "Language"
     cli: "CLI"
-    new: "Create Project"
+    new: "New Project"
   scripts:
-    new: "Create Script"
+    new: "New Script"
   misc:
     appname: "ScriptsOnRails"
     sure?: "Are you sure?"

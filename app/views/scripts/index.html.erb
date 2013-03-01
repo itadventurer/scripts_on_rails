@@ -1,7 +1,30 @@
 <% provide(:title, @project.name)%>
 <div class="span12">
   <p><%=@project.description %></p>
-  <%= link_to(t('scripts.new'), new_project_script_path(@project), class: 'btn btn-primary') if(can? :create, (@scripts.first || Script)) %>
+  <div class="btn-group">
+    <% if can? :update, @project %>
+      <%=link_to edit_project_path(@project), class:"btn" do %>
+        <i class="icon-pencil"></i>
+      <% end %>
+    <% end %>
+    <% if can? :read, @project %>
+      <%=link_to project_members_path(@project), class:"btn" do %>
+        <i class="icon-user"></i>
+      <% end %>
+    <% end %>
+    <% if can? :destroy, @project %>
+      <%=link_to project_path(@project), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
+        <i class="icon-trash"></i>
+      <% end %>
+    <% end %>
+    <% if(can? :create, (@scripts.first || Script)) %>
+      <%= link_to(new_project_script_path(@project), class: 'btn btn-primary') do %>
+        <i class="icon-file"></i>
+        <%=t('scripts.new')%>
+      <% end %>
+    <% end %>
+  </div>
+  <hr />
   <% @scripts.each do |script| %>
     <div>
       <h3><%= link_to script.name, project_script_path(@project,script) %></h3>

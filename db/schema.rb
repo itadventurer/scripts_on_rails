@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130301120004) do
+ActiveRecord::Schema.define(:version => 20130301143559) do
+
+  create_table "languages", :force => true do |t|
+    t.string   "name"
+    t.text     "editor_config"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "members", :force => true do |t|
     t.integer  "project_id"
@@ -24,11 +31,11 @@ ActiveRecord::Schema.define(:version => 20130301120004) do
 
   create_table "projects", :force => true do |t|
     t.string   "name"
-    t.string   "language"
     t.string   "description"
     t.string   "cli"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "language_id"
   end
 
   create_table "scripts", :force => true do |t|

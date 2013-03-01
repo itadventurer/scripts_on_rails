@@ -21,4 +21,8 @@ class Script < ActiveRecord::Base
 		length: { minimum: 5, maximum:50 },
 		# Name einzigartig
 		uniqueness: { case_sensitive: false }
+  validates :description,
+    presence: true
+  validates :code,
+    presence: true
 end
