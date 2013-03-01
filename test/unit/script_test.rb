@@ -2,11 +2,13 @@
 #
 # Table name: scripts
 #
-#  id         :integer          not null, primary key
-#  project_id :integer
-#  name       :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  project_id  :integer
+#  name        :string(255)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  description :text
+#  code        :text
 #
 
 require 'test_helper'

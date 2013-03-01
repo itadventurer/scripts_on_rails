@@ -4,7 +4,9 @@ ScriptsOnRails::Application.routes.draw do
   match 'projects_list' => 'projects#all'
   resources :projects do
     resources :members
-    resources :scripts
+    resources :scripts do
+      match 'run'=>'scripts#run'
+    end
   end
 
 

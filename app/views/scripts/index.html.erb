@@ -1,25 +1,27 @@
-<h1>Listing scripts</h1>
-
-<table>
-  <tr>
-    <th>Project</th>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @scripts.each do |script| %>
-  <tr>
-    <td><%= script.project_id %></td>
-    <td><%= script.name %></td>
-    <td><%= link_to 'Show', script %></td>
-    <td><%= link_to 'Edit', edit_project_script_path(script) %></td>
-    <td><%= link_to 'Destroy', script, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Script', new_project_script_path %>
+<% provide(:title, t('scripts.list'))%>
+<div class="span12">
+  <%= link_to t('scripts.new'), new_project_script_path(@project), class: 'btn btn-primary' %>
+  <% @scripts.each do |script| %>
+    <div>
+      <h3><%= link_to script.name, project_script_path(@project,script) %></h3>
+      <p><%= script.description %></p>
+      <div class="btn-group">
+        <%=link_to project_script_run_path(@project,script), class:"btn" do %>
+          <i class="icon-play"></i>
+        <% end %>
+        <%=link_to project_script_path(@project,script), class:"btn" do %>
+          <i class="icon-eye-open"></i>
+        <% end %>
+        <% if can? :update, script %>
+          <%=link_to edit_project_script_path(@project,script), class:"btn" do %>
+            <i class="icon-pencil"></i>
+          <% end %>
+          <%=link_to project_script_path(@project,script), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
+            <i class="icon-trash"></i>
+          <% end %>
+        <% end %>
+      </div>
+      <hr />
+    </div>
+  <% end %>
+</div>

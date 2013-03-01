@@ -1,4 +1,4 @@
-<%= form_for(@script) do |f| %>
+<%= form_for([@project, @script]) do |f| %>
   <% if @script.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@script.errors.count, "error") %> prohibited this script from being saved:</h2>
@@ -12,14 +12,18 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :project_id %><br />
-    <%= f.text_field :project_id %>
-  </div>
-  <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :code %><br />
+    <%= f.text_area :code %>
+  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: 'btn' %>
   </div>
 <% end %>
