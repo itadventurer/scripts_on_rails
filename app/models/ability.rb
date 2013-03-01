@@ -38,8 +38,10 @@ class Ability
     cannot :destroy, Script
     can :manage, Script, :project => {:members => { user_id: user.id, is_admin: true }}
 
+    can :read, Member, user_id: user.id
 
-    can :manage, :all if user.is_admin?
+
+    #can :manage, :all if user.is_admin?
 
 
   end

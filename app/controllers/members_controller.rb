@@ -1,8 +1,11 @@
 class MembersController < ApplicationController
+  before_filter :authenticate_user!
+  authorize_resource
   # GET /members
   # GET /members.json
   def index
-    @members = Member.all
+    @project=Project.find(params[:project_id])
+    @members = @project.members.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +16,8 @@ class MembersController < ApplicationController
   # GET /members/1
   # GET /members/1.json
   def show
-    @member = Member.find(params[:id])
+    @project=Project.members.find(params[:project_id])
+    @member = @project.members.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +28,8 @@ class MembersController < ApplicationController
   # GET /members/new
   # GET /members/new.json
   def new
-    @member = Member.new
+    @project=Project.members.find(params[:project_id])
+    @member = @project.members.new(params[:member])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +39,15 @@ class MembersController < ApplicationController
 
   # GET /members/1/edit
   def edit
-    @member = Member.find(params[:id])
+    @project=Project.members.find(params[:project_id])
+    @member = @project.members.find(params[:id])
   end
 
   # POST /members
   # POST /members.json
   def create
-    @member = Member.new(params[:member])
+    @project=Project.members.find(params[:project_id])
+    @member = @project.members.new(params[:member])
 
     respond_to do |format|
       if @member.save
@@ -56,7 +63,8 @@ class MembersController < ApplicationController
   # PUT /members/1
   # PUT /members/1.json
   def update
-    @member = Member.find(params[:id])
+    @project=Project.members.find(params[:project_id])
+    @member = @project.members.find(params[:id])
 
     respond_to do |format|
       if @member.update_attributes(params[:member])
@@ -72,7 +80,8 @@ class MembersController < ApplicationController
   # DELETE /members/1
   # DELETE /members/1.json
   def destroy
-    @member = Member.find(params[:id])
+    @project=Project.members.find(params[:project_id])
+    @member = @project.members.find(params[:id])
     @member.destroy
 
     respond_to do |format|
