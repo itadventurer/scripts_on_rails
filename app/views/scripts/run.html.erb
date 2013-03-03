@@ -1,0 +1,37 @@
+<% provide(:title, @script.name)%>
+<div class="btn-group">
+  <a href="#" id="rerun" class="btn btn-primary"><i class="icon-play"></i> <%= t 'scripts.rerun' %></a>
+  <% if can? :update, @script %>
+    <%=link_to edit_project_script_path(@project,@script), class:"btn" do %>
+      <i class="icon-pencil"></i>
+    <% end %>
+  <% end %>
+  <% if can? :destroy, @script %>
+    <%=link_to project_script_path(@project,@script), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
+      <i class="icon-trash"></i>
+    <% end %>
+  <% end %>
+</div>
+<h3><%= t 'scripts.output' %></h3>
+<pre id="run">running...</pre>
+<dl>
+  <dd><%=t('scripts.exec_time')%>:</dd>
+  <dt id="run_time"></dt>
+</dl>
+<script type="text/javascript">
+  run=function(){
+    $.get("<%= project_script_exec_path(@project,@script,format: :json)%>", function(data){
+        $('#run').text(data.data);
+        $('#run_time').text(data.time + ' s');
+        });
+  };
+$(function(){
+    run();
+    $('#rerun').click(function(){
+      $('#run').text("running...");
+      $('#run_time').text('');
+      run()
+
+      });
+    });
+  </script>

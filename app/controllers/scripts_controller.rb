@@ -109,4 +109,24 @@ class ScriptsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def run
+    @project=Project.find(params[:project_id])
+    self.crumb
+    @script = @project.scripts.find(params[:script_id])
+    add_crumb @script.name, project_script_path(@project,@script)
+    add_crumb I18n.t('scripts.run'), edit_project_script_path(@project,@script)
+    authorize! :run, @script
+  end
+  def exec
+    @project=Project.find(params[:project_id])
+    self.crumb
+    @script = @project.scripts.find(params[:script_id])
+    path="#{Rails.root}/data/#{@script.path}"
+    beginning = Time.now
+    data=`#{path}`
+    time=Time.now-beginning
+    json={"data"=>data,"time"=>time}
+    render json: json
+
+  end
 end

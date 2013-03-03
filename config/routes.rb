@@ -12,6 +12,7 @@ ScriptsOnRails::Application.routes.draw do
     resources :members
     resources :scripts do
       match 'run'=>'scripts#run'
+      match 'exec'=>'scripts#exec'
     end
   end
 

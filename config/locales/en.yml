@@ -19,6 +19,10 @@ en:
     new: "New Script"
     all: "Scripts"
     edit: "Edit"
+    run: "Run"
+    return: "Return"
+    exec_time: "Exec time"
+    rerun: "Rerun"
   misc:
     appname: "ScriptsOnRails"
     sure?: "Are you sure?"
