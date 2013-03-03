@@ -1,10 +1,14 @@
 class LanguagesController < ApplicationController
   before_filter :authenticate_user!
   authorize_resource
+  def crumb
+    add_crumb I18n.t('languages.all'), languages_path
+  end
   # GET /languages
   # GET /languages.json
   def index
     @languages = Language.all
+    self.crumb
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,6 +20,8 @@ class LanguagesController < ApplicationController
   # GET /languages/1.json
   def show
     @language = Language.find(params[:id])
+    self.crumb
+    add_crumb @language.name, language_path(@language)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,6 +33,8 @@ class LanguagesController < ApplicationController
   # GET /languages/new.json
   def new
     @language = Language.new
+    self.crumb
+    add_crumb I18n.t('languages.new'), new_language_path()
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,6 +45,9 @@ class LanguagesController < ApplicationController
   # GET /languages/1/edit
   def edit
     @language = Language.find(params[:id])
+    self.crumb
+    add_crumb @language.name, language_path(@language)
+    add_crumb I18n.t('languages.edit'), edit_language_path(@language)
   end
 
   # POST /languages

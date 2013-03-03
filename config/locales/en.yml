@@ -10,6 +10,11 @@ en:
     new: "New Project"
     my: "My Projects"
     edit: "Edit"
+    members: "Members"
+    all: "All Projects"
+  members:
+    edit: "Edit"
+    new: "New"
   scripts:
     new: "New Script"
     all: "Scripts"
@@ -18,4 +23,11 @@ en:
     appname: "ScriptsOnRails"
     sure?: "Are you sure?"
     home: "Home"
+    help: "Help"
+  admin:
+    manage: "Admin"
+  languages:
+    all: "Manage languages"
+    edit: "Edit"
+    new: "New"
   

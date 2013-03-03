@@ -1,11 +1,19 @@
 class MembersController < ApplicationController
   before_filter :authenticate_user!
   authorize_resource
+
+  def crumb
+    add_crumb I18n.t('projects.my'), projects_path
+    add_crumb @project.name, project_path(@project)
+    add_crumb I18n.t('projects.members'), project_members_path(@project)
+  end
+
   # GET /members
   # GET /members.json
   def index
     @project=Project.find(params[:project_id])
     @members = @project.members.all
+    self.crumb
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,8 +24,10 @@ class MembersController < ApplicationController
   # GET /members/1
   # GET /members/1.json
   def show
-    @project=Project.members.find(params[:project_id])
+    @project=Project.find(params[:project_id])
     @member = @project.members.find(params[:id])
+    self.crumb
+    add_crumb @member.user.email, project_member_path(@project,@member)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -28,8 +38,10 @@ class MembersController < ApplicationController
   # GET /members/new
   # GET /members/new.json
   def new
-    @project=Project.members.find(params[:project_id])
+    @project=Project.find(params[:project_id])
     @member = @project.members.new(params[:member])
+    self.crumb
+    add_crumb I18n.t('members.new'), new_project_member_path(@project)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -39,14 +51,17 @@ class MembersController < ApplicationController
 
   # GET /members/1/edit
   def edit
-    @project=Project.members.find(params[:project_id])
+    @project=Project.find(params[:project_id])
     @member = @project.members.find(params[:id])
+    self.crumb
+    add_crumb @member.user.email, project_member_path(@project,@member)
+    add_crumb I18n.t('members.edit'), edit_project_member_path(@project,@member)
   end
 
   # POST /members
   # POST /members.json
   def create
-    @project=Project.members.find(params[:project_id])
+    @project=Project.find(params[:project_id])
     @member = @project.members.new(params[:member])
 
     respond_to do |format|
@@ -63,7 +78,7 @@ class MembersController < ApplicationController
   # PUT /members/1
   # PUT /members/1.json
   def update
-    @project=Project.members.find(params[:project_id])
+    @project=Project.find(params[:project_id])
     @member = @project.members.find(params[:id])
 
     respond_to do |format|
@@ -80,7 +95,7 @@ class MembersController < ApplicationController
   # DELETE /members/1
   # DELETE /members/1.json
   def destroy
-    @project=Project.members.find(params[:project_id])
+    @project=Project.find(params[:project_id])
     @member = @project.members.find(params[:id])
     @member.destroy
 
