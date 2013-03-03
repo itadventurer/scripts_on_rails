@@ -3,12 +3,18 @@ class ScriptsController < ApplicationController
   authorize_resource
 
   include ApplicationHelper
+
+  def crumb
+    add_crumb I18n.t('projects.my'), projects_path
+    add_crumb @project.name, project_path(@project)
+  end
   
   # GET /scripts
   # GET /scripts.json
   def index
     @project=Project.find(params[:project_id])
     @scripts = @project.scripts
+    self.crumb
     authorize! :show, @project
 
     respond_to do |format|
@@ -21,7 +27,9 @@ class ScriptsController < ApplicationController
   # GET /scripts/1.json
   def show
     @project=Project.find(params[:project_id])
+    self.crumb
     @script = @project.scripts.find(params[:id])
+    add_crumb @script.name, project_script_path(@project,@script)
     authorize! :show, @script
 
     respond_to do |format|
@@ -35,6 +43,8 @@ class ScriptsController < ApplicationController
   def new
     @project=Project.find(params[:project_id])
     @script = @project.scripts.new
+    self.crumb
+    add_crumb I18n.t('scripts.new'), new_project_script_path(@project)
     authorize! :create, @script
 
     respond_to do |format|
@@ -46,7 +56,10 @@ class ScriptsController < ApplicationController
   # GET /scripts/1/edit
   def edit
     @project=Project.find(params[:project_id])
+    self.crumb
     @script = @project.scripts.find(params[:id])
+    add_crumb @script.name, project_script_path(@project,@script)
+    add_crumb I18n.t('scripts.edit'), edit_project_script_path(@project,@script)
     authorize! :create, @script
   end
 

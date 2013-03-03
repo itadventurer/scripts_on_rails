@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
   authorize_resource
+  add_crumb I18n.t('misc.users'), '/'
   # GET /users
   # GET /users.json
   def index

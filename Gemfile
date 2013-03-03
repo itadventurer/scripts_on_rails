@@ -5,6 +5,7 @@ gem 'bootstrap-sass', '2.0.4'
 gem 'devise', '~> 2.2.0'
 gem 'cancan', '~> 1.6.8'
 gem 'yaml_db', "~> 0.2.3"
+gem 'crummy'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

@@ -8,9 +8,14 @@ en:
     language: "Language"
     cli: "CLI"
     new: "New Project"
+    my: "My Projects"
+    edit: "Edit"
   scripts:
     new: "New Script"
+    all: "Scripts"
+    edit: "Edit"
   misc:
     appname: "ScriptsOnRails"
     sure?: "Are you sure?"
+    home: "Home"
   

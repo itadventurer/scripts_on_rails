@@ -42,6 +42,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.5.0)
+    crummy (1.6.0)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -126,6 +127,7 @@ DEPENDENCIES
   bootstrap-sass (= 2.0.4)
   cancan (~> 1.6.8)
   coffee-rails (~> 3.2.1)
+  crummy
   devise (~> 2.2.0)
   jquery-rails
   jquery-ui-rails

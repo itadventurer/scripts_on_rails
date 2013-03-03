@@ -41,7 +41,7 @@ class Ability
     can :read, Member, user_id: user.id
 
 
-    #can :manage, :all if user.is_admin?
+    can :manage, :all if user.is_admin?
 
 
   end

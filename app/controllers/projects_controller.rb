@@ -1,10 +1,16 @@
 class ProjectsController < ApplicationController
   before_filter :authenticate_user!
   authorize_resource
+
+  def crumb
+    add_crumb I18n.t('projects.my'), projects_path
+  end
+  
   # GET /projects
   # GET /projects.json
   def index
     @projects = current_user.projects
+    self.crumb
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +20,7 @@ class ProjectsController < ApplicationController
 
   def all
     @projects=Project.all
+    self.crumb
     authorize! :list_all, Project
     render 'index'
   end
@@ -22,6 +29,8 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
+    self.crumb
+    add_crumb @project.name, project_path(@project)
 
     respond_to do |format|
       format.html { redirect_to project_scripts_path(@project) }# show.html.erb
@@ -33,6 +42,8 @@ class ProjectsController < ApplicationController
   # GET /projects/new.json
   def new
     @project = Project.new
+    self.crumb
+    add_crumb I18n.t('projects.new'), new_project_path()
 
     respond_to do |format|
       format.html # new.html.erb
@@ -43,6 +54,9 @@ class ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
     @project = Project.find(params[:id])
+    self.crumb
+    add_crumb @project.name, project_path(@project)
+    add_crumb I18n.t('projects.edit'), edit_project_path(@project)
     authorize! :update, @project
   end
 
