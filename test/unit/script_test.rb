@@ -9,6 +9,7 @@
 #  updated_at  :datetime         not null
 #  description :text
 #  code        :text
+#  path        :string(255)
 #
 
 require 'test_helper'

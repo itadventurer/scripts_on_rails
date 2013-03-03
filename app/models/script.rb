@@ -9,6 +9,7 @@
 #  updated_at  :datetime         not null
 #  description :text
 #  code        :text
+#  path        :string(255)
 #
 
 class Script < ActiveRecord::Base
@@ -25,4 +26,23 @@ class Script < ActiveRecord::Base
     presence: true
   validates :code,
     presence: true
+
+
+  # After Save
+  before_save :save_file
+
+  def save_file
+    if(self.path=='' || self.path==nil)
+      o =  [('a'..'z'),('A'..'Z')].map{|i| i.to_a}.flatten
+      self.path =  (0...5).map{ o[rand(o.length)] }.join
+    end
+    txt=self.code
+    path="#{Rails.root}/data/#{self.path}"
+    File.open("#{path}", 'w') do |f| 
+      f.puts("#!" + self.project.language.bin)
+      f.puts("#" + I18n.t('misc.gen_str'))
+      f.puts(txt)
+      f.chmod(0700)
+    end
+  end
 end

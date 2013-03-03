@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130301143559) do
+ActiveRecord::Schema.define(:version => 20130303190431) do
 
   create_table "languages", :force => true do |t|
     t.string   "name"
     t.text     "editor_config"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.string   "bin"
   end
 
   create_table "members", :force => true do |t|
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20130301143559) do
     t.datetime "updated_at",  :null => false
     t.text     "description"
     t.text     "code"
+    t.string   "path"
   end
 
   create_table "users", :force => true do |t|
