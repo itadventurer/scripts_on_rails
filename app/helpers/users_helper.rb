@@ -1,10 +1,10 @@
 module UsersHelper
   def getName(user)
-    if user.name=='' && user.surname==''
+    if user.name==nil && user.surname==nil
       name=user.email
-    elsif user.name==''
+    elsif user.name==nil
       name=user.surname
-    elsif user.surname==''
+    elsif user.surname==nil
       name=user.name
     else
       name=user.name + ' ' + user.surname
