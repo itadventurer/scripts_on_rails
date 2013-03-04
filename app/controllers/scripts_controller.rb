@@ -126,7 +126,12 @@ class ScriptsController < ApplicationController
     beginning = Time.now
     data=`#{path}`
     time=Time.now-beginning
-    json={"data"=>data,"time"=>time}
+    
+    require 'redcarpet'
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
+                                       :autolink => true, :space_after_headers => true)
+    md=markdown.render(data)
+    json={"data"=>data,"time"=>time,"markdown"=>md}
     render json: json
 
   end

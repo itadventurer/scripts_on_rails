@@ -1,19 +1,29 @@
 <% provide(:title, @script.name)%>
+<p><%= md @script.description%></p>
 <div class="btn-group">
   <a href="#" id="rerun" class="btn btn-primary"><i class="icon-play"></i> <%= t 'scripts.rerun' %></a>
   <% if can? :update, @script %>
-    <%=link_to edit_project_script_path(@project,@script), class:"btn" do %>
-      <i class="icon-pencil"></i>
+ <%=link_to edit_project_script_path(@project,@script), class:"btn" do %>
+ <i class="icon-pencil"></i>
     <% end %>
   <% end %>
   <% if can? :destroy, @script %>
-    <%=link_to project_script_path(@project,@script), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
-      <i class="icon-trash"></i>
+ <%=link_to project_script_path(@project,@script), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
+ <i class="icon-trash"></i>
     <% end %>
   <% end %>
 </div>
 <h3><%= t 'scripts.output' %></h3>
-<pre id="run">running...</pre>
+<ul class="nav nav-tabs" id="nav-run">
+  <li class="active">
+    <a href="#" id="nav-raw"><%= t 'scripts.run_raw' %></a>
+  </li>
+  <li>
+    <a href="#" id="nav-md"><%= t 'scripts.run_md' %></a>
+  </li>
+</ul>
+<pre id="run-raw">running...</pre>
+<div id="run-md">running...</div>
 <dl>
   <dd><%=t('scripts.exec_time')%>:</dd>
   <dt id="run_time"></dt>
@@ -21,17 +31,33 @@
 <script type="text/javascript">
   run=function(){
     $.get("<%= project_script_exec_path(@project,@script,format: :json)%>", function(data){
-        $('#run').text(data.data);
+        $('#run-raw').text(data.data);
+        $('#run-md').html(data.markdown);
         $('#run_time').text(data.time + ' s');
         });
   };
 $(function(){
     run();
     $('#rerun').click(function(){
-      $('#run').text("running...");
+      $('#run-raw').text("running...");
+      $('#run-md').html("<p>running...</p>");
       $('#run_time').text('');
       run()
 
-      });
     });
-  </script>
+    $('#nav-md').click(function(){
+      $('#nav-run').children().removeClass('active');
+      $('#nav-md').parent().addClass('active');
+      $('#run-raw').hide();
+      $('#run-md').show();
+    });
+    $('#nav-raw').click(function(){
+      $('#nav-run').children().removeClass('active');
+      $('#nav-raw').parent().addClass('active');
+      $('#run-md').hide();
+      $('#run-raw').show();
+    });
+  });
+
+
+</script>

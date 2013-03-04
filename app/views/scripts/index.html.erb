@@ -1,5 +1,5 @@
 <% provide(:title, @project.name)%>
-<p><%=@project.description %></p>
+<p><%=md @project.description %></p>
 <div class="btn-group">
   <% if can? :update, @project %>
     <%=link_to edit_project_path(@project), class:"btn" do %>
@@ -27,7 +27,7 @@
   <hr />
   <div>
     <h3><%= link_to script.name, project_script_path(@project,script) %></h3>
-    <p><%= script.description %></p>
+    <p><%= md script.description %></p>
     <div class="btn-group">
       <%=link_to project_script_run_path(@project,script), class:"btn" do %>
         <i class="icon-play"></i>

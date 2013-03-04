@@ -23,6 +23,8 @@ en:
     return: "Return"
     exec_time: "Exec time"
     rerun: "Rerun"
+    run_raw: "Raw"
+    run_md: "Markdown"
   misc:
     appname: "ScriptsOnRails"
     sure?: "Are you sure?"

@@ -19,4 +19,10 @@ module ApplicationHelper
   def li(f)
     f.downcase 
   end
+  def md(txt)
+    require 'redcarpet'
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
+                                       :autolink => true, :space_after_headers => true)
+    markdown.render(txt).html_safe
+  end
 end
