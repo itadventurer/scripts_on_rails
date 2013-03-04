@@ -9,7 +9,7 @@ en:
     cli: "CLI"
     new: "New Project"
     my: "My Projects"
-    edit: "Edit"
+    edit: "Edit Project"
     members: "Members"
     all: "All Projects"
   members:

@@ -12,7 +12,7 @@
 #
 
 class Project < ActiveRecord::Base
-  attr_accessible :cli, :description, :language, :name, :language_id
+  attr_accessible :description, :language, :name, :language_id
 
   has_many :scripts
   has_many :members
