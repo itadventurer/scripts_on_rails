@@ -1,23 +1,21 @@
 <% provide(:title, @script.name)%>
-<div class="span12">
-  <p><%=@script.description %></p>
-      <div class="btn-group">
-        <%=link_to project_script_run_path(@project,@script), class:"btn-primary btn" do %>
-          <i class="icon-play"></i>
-        <% end %>
-        <% if can? :update, @script %>
-          <%=link_to edit_project_script_path(@project,@script), class:"btn" do %>
-            <i class="icon-pencil"></i>
-          <% end %>
-        <% end %>
-        <% if can? :destroy, @script %>
-          <%=link_to project_script_path(@project,@script), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
-            <i class="icon-trash"></i>
-          <% end %>
-        <% end %>
-      </div>
-  <div id="editor"><%=@script.code %></div>
+<p><%=@script.description %></p>
+<div class="btn-group">
+  <%=link_to project_script_run_path(@project,@script), class:"btn-primary btn" do %>
+    <i class="icon-play"></i>
+  <% end %>
+  <% if can? :update, @script %>
+    <%=link_to edit_project_script_path(@project,@script), class:"btn" do %>
+      <i class="icon-pencil"></i>
+    <% end %>
+  <% end %>
+  <% if can? :destroy, @script %>
+    <%=link_to project_script_path(@project,@script), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
+      <i class="icon-trash"></i>
+    <% end %>
+  <% end %>
 </div>
+<div id="editor"><%=@script.code %></div>
 
 <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">

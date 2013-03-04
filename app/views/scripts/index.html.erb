@@ -1,52 +1,50 @@
 <% provide(:title, @project.name)%>
-<div class="span12">
-  <p><%=@project.description %></p>
-  <div class="btn-group">
-    <% if can? :update, @project %>
-      <%=link_to edit_project_path(@project), class:"btn" do %>
-        <i class="icon-pencil"></i>
-      <% end %>
+<p><%=@project.description %></p>
+<div class="btn-group">
+  <% if can? :update, @project %>
+    <%=link_to edit_project_path(@project), class:"btn" do %>
+      <i class="icon-pencil"></i>
     <% end %>
-    <% if can? :read, @project %>
-      <%=link_to project_members_path(@project), class:"btn" do %>
-        <i class="icon-user"></i>
-      <% end %>
+  <% end %>
+  <% if can? :read, @project %>
+    <%=link_to project_members_path(@project), class:"btn" do %>
+      <i class="icon-user"></i>
     <% end %>
-    <% if can? :destroy, @project %>
-      <%=link_to project_path(@project), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
-        <i class="icon-trash"></i>
-      <% end %>
+  <% end %>
+  <% if can? :destroy, @project %>
+    <%=link_to project_path(@project), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
+      <i class="icon-trash"></i>
     <% end %>
-    <% if(can? :create, (@scripts.first || Script)) %>
-      <%= link_to(new_project_script_path(@project), class: 'btn btn-primary') do %>
-        <i class="icon-file"></i>
-        <%=t('scripts.new')%>
-      <% end %>
+  <% end %>
+  <% if(can? :create, (@scripts.first || Script)) %>
+    <%= link_to(new_project_script_path(@project), class: 'btn btn-primary') do %>
+      <i class="icon-file"></i>
+      <%=t('scripts.new')%>
     <% end %>
-  </div>
-  <% @scripts.each do |script| %>
-  <hr />
-    <div>
-      <h3><%= link_to script.name, project_script_path(@project,script) %></h3>
-      <p><%= script.description %></p>
-      <div class="btn-group">
-        <%=link_to project_script_run_path(@project,script), class:"btn" do %>
-          <i class="icon-play"></i>
-        <% end %>
-        <%=link_to project_script_path(@project,script), class:"btn" do %>
-          <i class="icon-eye-open"></i>
-        <% end %>
-        <% if can? :update, script %>
-          <%=link_to edit_project_script_path(@project,script), class:"btn" do %>
-            <i class="icon-pencil"></i>
-          <% end %>
-        <% end %>
-        <% if can? :destroy, script %>
-          <%=link_to project_script_path(@project,script), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
-            <i class="icon-trash"></i>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
   <% end %>
 </div>
+<% @scripts.each do |script| %>
+  <hr />
+  <div>
+    <h3><%= link_to script.name, project_script_path(@project,script) %></h3>
+    <p><%= script.description %></p>
+    <div class="btn-group">
+      <%=link_to project_script_run_path(@project,script), class:"btn" do %>
+        <i class="icon-play"></i>
+      <% end %>
+      <%=link_to project_script_path(@project,script), class:"btn" do %>
+        <i class="icon-eye-open"></i>
+      <% end %>
+      <% if can? :update, script %>
+        <%=link_to edit_project_script_path(@project,script), class:"btn" do %>
+          <i class="icon-pencil"></i>
+        <% end %>
+      <% end %>
+      <% if can? :destroy, script %>
+        <%=link_to project_script_path(@project,script), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
+          <i class="icon-trash"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
