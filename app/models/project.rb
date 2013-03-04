@@ -32,4 +32,11 @@ class Project < ActiveRecord::Base
   validates :language,
     presence:true 
 
+  before_destroy :recursive_destroy
+
+  def recursive_destroy
+    self.scripts.each { |s| s.destroy }
+    self.members.each { |m| m.destroy }
+  end
+
 end
