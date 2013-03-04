@@ -1,3 +1,8 @@
-<% provide :title, t('misc.appname') %>
-OMG WTF?
+<div class="center hero-unit">
 
+  <h1><%= t 'home.title' %></h1>
+  <h2><%= t 'home.subtitle' %></h2>
+  <p><%= t 'home.description' %></p>
+    <%= link_to t('home.sign_up'), new_user_registration_path, class: "btn btn-large btn-primary" %>  
+    <%= link_to t('home.sign_in'), new_user_session_path, class: "btn btn-large btn-primary" %>  
+</div>

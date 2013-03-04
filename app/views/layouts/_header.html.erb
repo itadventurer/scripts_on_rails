@@ -23,7 +23,8 @@
         </div>
       <% end %>
 
-      <ul class="nav pull-right">
+        <div class="nav-collapse collapse pull-right">
+      <ul class="nav">
         <% if !(user_signed_in?) %>
           <li><%= link_to t('users.sign_in'), new_user_session_path %></li>
         <%else %>
@@ -73,6 +74,7 @@
             </li>
           <% end %>
         </ul>
+      </div>
       </div>
     </div>
   </div>

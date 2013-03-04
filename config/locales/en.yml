@@ -38,4 +38,10 @@ en:
     help_name: "This is the name, which everybody can see"
     help_bin: "Path to the executable on this system"
     help_editor_config: "Configure the ACE-Editor"
+  home:
+    title: "Scripts on Rails"
+    subtitle: "The free Script-Server"
+    sign_up: "Register"
+    sign_in: "Login"
+    description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
   
