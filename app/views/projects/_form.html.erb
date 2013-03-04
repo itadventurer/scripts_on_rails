@@ -14,13 +14,16 @@
   <div class="field">
     <%= f.label :name %>
     <%= f.text_field :name %>
+    <span class="help-inline"><%= t('projects.help.name') %></span>
   </div>
   <div class="field">
     <%= f.label :language_id %>
     <%= select(:project,:language_id,Language.all.collect {|l| [l.name, l.id]}) %>
+    <span class="help-inline"><%= t('projects.help.language') %></span>
   </div>
   <div class="field">
     <%= f.label :description %>
+    <span class="help-block"><%= t('projects.help.description') %></span>
     <%= f.text_area :description %>
   </div>
   <div class="actions">

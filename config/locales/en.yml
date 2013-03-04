@@ -12,6 +12,10 @@ en:
     edit: "Edit Project"
     members: "Members"
     all: "All Projects"
+    help:
+      name: "The name of the Project"
+      language: "Which programming language do you use in this project?"
+      description: "A short description (use markdown!)"
   members:
     edit: "Edit"
     new: "New"
@@ -25,6 +29,10 @@ en:
     rerun: "Rerun"
     run_raw: "Raw"
     run_md: "Markdown"
+    help:
+      name: "The name of the Script"
+      description: "A short description (use markdown!)"
+      code: "Write your code"
   misc:
     appname: "ScriptsOnRails"
     sure?: "Are you sure?"
@@ -37,9 +45,10 @@ en:
     all: "Manage languages"
     edit: "Edit language"
     new: "Create language"
-    help_name: "This is the name, which everybody can see"
-    help_bin: "Path to the executable on this system"
-    help_editor_config: "Configure the ACE-Editor"
+    help:
+      name: "This is the name, which everybody can see"
+      bin: "Path to the executable on this system"
+      editor_config: "Configure the ACE-Editor"
   home:
     title: "Scripts on Rails"
     subtitle: "The free Script-Server"

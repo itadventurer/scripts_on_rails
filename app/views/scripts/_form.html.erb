@@ -14,13 +14,16 @@
   <div class="field">
     <%= f.label :name %>
     <%= f.text_field :name %>
+    <span class="help-inline"><%= t('scripts.help.name') %></span>
   </div>
   <div class="field">
     <%= f.label :description %>
+    <span class="help-block"><%= t('scripts.help.description') %></span>
     <%= f.text_area :description %>
   </div>
   <div class="field">
     <%= f.label :code %>
+    <span class="help-block"><%= t('scripts.help.code') %></span>
     <div id="editor"><%=@script.code%></div>
     <input type="hidden" value="" name="script[code]" id="code"/>
   </div>
