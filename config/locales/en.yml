@@ -33,6 +33,9 @@ en:
     manage: "Admin"
   languages:
     all: "Manage languages"
-    edit: "Edit"
-    new: "New"
+    edit: "Edit language"
+    new: "Create language"
+    help_name: "This is the name, which everybody can see"
+    help_bin: "Path to the executable on this system"
+    help_editor_config: "Configure the ACE-Editor"
   

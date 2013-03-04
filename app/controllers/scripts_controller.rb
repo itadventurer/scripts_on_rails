@@ -121,6 +121,7 @@ class ScriptsController < ApplicationController
     @project=Project.find(params[:project_id])
     self.crumb
     @script = @project.scripts.find(params[:script_id])
+    authorize! :run, @script
     path="#{Rails.root}/data/#{@script.path}"
     beginning = Time.now
     data=`#{path}`

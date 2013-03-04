@@ -1,5 +1,8 @@
 @import "bootstrap";
 /* Rails scaffold style compatibility */
+h1{
+  margin: 10px 0;
+}
 #error_explanation {
   @extend .alert;
   @extend .alert-error;

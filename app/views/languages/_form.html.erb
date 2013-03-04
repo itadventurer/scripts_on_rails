@@ -12,18 +12,21 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %>
     <%= f.text_field :name %>
+    <span class="help-inline"><%= t('languages.help_name') %></span>
   </div>
   <div class="field">
-    <%= f.label :bin %><br />
+    <%= f.label :bin %>
     <%= f.text_field :bin %>
+    <span class="help-inline"><%= t('languages.help_bin') %></span>
   </div>
   <div class="field">
-    <%= f.label :editor_config %><br />
+    <%= f.label :editor_config %>
+    <span class="help-block"><%= t('languages.help_editor_config') %></span>
     <%= f.text_area :editor_config %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn"%>
   </div>
 <% end %>

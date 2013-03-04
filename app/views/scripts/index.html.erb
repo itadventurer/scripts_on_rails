@@ -24,8 +24,8 @@
       <% end %>
     <% end %>
   </div>
-  <hr />
   <% @scripts.each do |script| %>
+  <hr />
     <div>
       <h3><%= link_to script.name, project_script_path(@project,script) %></h3>
       <p><%= script.description %></p>
@@ -47,7 +47,6 @@
           <% end %>
         <% end %>
       </div>
-      <hr />
     </div>
   <% end %>
 </div>

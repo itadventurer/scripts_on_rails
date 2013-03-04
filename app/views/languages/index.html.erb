@@ -1,25 +1,24 @@
-<h1>Listing languages</h1>
+<% provide(:title, t('languages.all'))%>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Editor config</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @languages.each do |language| %>
-  <tr>
-    <td><%= language.name %></td>
-    <td><%= language.editor_config %></td>
-    <td><%= link_to 'Show', language %></td>
-    <td><%= link_to 'Edit', edit_language_path(language) %></td>
-    <td><%= link_to 'Destroy', language, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Language', new_language_path %>
+<div class="span12">
+  <%= link_to t('languages.new'), new_language_path, class: 'btn btn-primary' if can? :create, Language%>
+  <% @languages.each do |language| %>
+  <hr />
+    <div>
+      <h3><%= link_to language.name, edit_language_path(language) if can? :update, language %><%= language.name unless can? :update, language %></h3>
+      <small class="muted"><%= t 'language.bin'%>: <%= language.bin %></small>
+      <div class="btn-group">
+        <% if can? :update, language %>
+          <%=link_to edit_language_path(language), class:"btn" do %>
+            <i class="icon-pencil"></i>
+          <% end %>
+        <% end %>
+        <% if can? :destroy, language %>
+          <%=link_to language_path(language), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
+            <i class="icon-trash"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

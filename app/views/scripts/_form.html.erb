@@ -12,15 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
+    <%= f.label :description %>
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :code %><br />
+    <%= f.label :code %>
     <div id="editor"><%=@script.code%></div>
     <input type="hidden" value="" name="script[code]" id="code"/>
   </div>
