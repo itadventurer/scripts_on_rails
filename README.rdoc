@@ -1,2 +1,12 @@
 == Scripts on Rails
 It's a simple Web-Application to manage and run scripts on a server.
+
+== Demo Application
+
+Here you can test it:
+
+* http://sor.azapps.de
+* User: test@example.com
+* Password: test1234
+
+(Please do not change the password)
