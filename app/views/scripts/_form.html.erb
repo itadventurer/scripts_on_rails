@@ -24,6 +24,10 @@
   <div class="field">
     <%= f.label :code %>
     <span class="help-block"><%= t('scripts.help.code') %></span>
+    <dl>
+      <dt>How to include other scripts?</dt>
+      <dd><pre>#!include [script-name]</pre></dd>
+      </dl>
     <div id="editor"><%=@script.code%></div>
     <input type="hidden" value="" name="script[code]" id="code"/>
   </div>

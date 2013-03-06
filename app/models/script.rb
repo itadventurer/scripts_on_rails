@@ -30,6 +30,26 @@ class Script < ActiveRecord::Base
 
   # After Save
   before_save :save_file
+  def compile(txt)
+    out=[]
+
+    txt.lines.each do |line|
+      inc=line.scan(/^#!include (.*)/)
+      print inc
+      if(inc.length!=0)
+        inc=inc[0][0].strip
+        include_script=self.project.scripts.find_by_name(inc)
+        out.append("# Compiled from: #{inc}")
+        line=compile(include_script.code) if include_script!=nil
+        out.append line
+        out.append("# /end #{inc}")
+      else
+        out.append line
+      end
+      
+    end
+    out
+  end
 
   def save_file
     if(self.path=='' || self.path==nil)
@@ -39,6 +59,9 @@ class Script < ActiveRecord::Base
     txt=self.code
     path="#{Rails.root}/data/#{self.path}"
     File.open("#{path}", 'w') do |f| 
+      ### This code should not be in this file
+      txt=compile(txt)
+      ### /END
       f.puts("#!" + self.project.language.bin)
       f.puts("#" + I18n.t('misc.gen_str'))
       f.puts(txt)
