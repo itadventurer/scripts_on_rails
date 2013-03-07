@@ -4,9 +4,9 @@
       <h2><%= pluralize(@script.errors.count, "error") %> prohibited this script from being saved:</h2>
 
       <ul>
-      <% @script.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @script.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -28,16 +28,50 @@
       <dt>How to include other scripts?</dt>
       <dd><pre>#!include [script-name]</pre></dd>
       </dl>
-    <div id="editor"><%=@script.code%></div>
-    <input type="hidden" value="" name="script[code]" id="code"/>
+      <%= link_to '#', id: 'ide-fullscreen', class: 'btn' do %>
+        <i class="icon-fullscreen"></i> <%= t('scripts.fullscreen') %>
+      <% end %>
+      <div id="editor"><%=@script.code%></div>
+      <input type="hidden" value="" name="script[code]" id="code"/>
+    </div>
+    <hr />
+    <div class="actions" style="margin-top:500px">
+      <%= f.submit class: 'btn',id:'submit' %>
+    </div>
+  <% end %>
+
+
+  <!-- "IDE" -->
+
+  <div id="ide">
+    <ul id="ide-nav" class="nav nav-tabs">
+      <% @project.scripts.each do |script|
+        next if script.name.nil?
+    %>
+        <li class="<%= "active" if (script.name == @script.name) %> script">
+        <%= link_to script.name, project_script_path(@project,script), script_id:script.id  %>
+      </li>
+    <% end %>
+    <li class="pull-right"><a href="#" id="ide-close"><i class="icon-remove"></i> <%= t 'scripts.ide.close' %></a></li>
+    <li class="pull-right"><a href="#" id="ide-run"><i class="icon-play"></i> <%= t 'scripts.ide.run' %></a></li>
+    <li class="pull-right"><a href="#" id="ide-save"><i class="icon-hdd"></i> <%= t 'scripts.ide.save' %></a></li>
+  </ul>
+  <div id="ide-editor"><%=@script.code%></div>
+  <div id="ide-console">
+    <h3><%= t 'scripts.ide.console' %>
+      <small><a href="#" id="ide-clean"><i class="icon-trash"></i> <%= t 'scripts.ide.clean' %></a></small>
+    </h3>
+    <span id="ide-console-content"></span>
   </div>
-  <hr />
-  <div class="actions" style="margin-top:500px">
-    <%= f.submit class: 'btn',id:'submit' %>
-  </div>
-<% end %>
-<script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+</div>
+
+<!-- JS -->
+
+
 <script type="text/javascript">
+  script_id=<%=@script.id || 0%>;
+  project_id=<%=@project.id%>;
+  script_name="<%=@script.name%>";
   var editor=ace.edit("editor");
   editor.setTheme("ace/theme/monokai");
   editor.getSession().setMode("ace/mode/<%=@project.language.name%>");
@@ -45,7 +79,17 @@
   $(function(){
       $('#myform').submit(function(){
         $('#code').val(editor.getValue());
+        });
+
+      });
+var ide_editor=ace.edit("ide-editor");
+ide_editor.setTheme("ace/theme/monokai");
+ide_editor.getSession().setMode("ace/mode/<%=@project.language.name%>");
+<%=@project.language.editor_config%>
+$(function(){
+    $('#myform').submit(function(){
+      $('#code').val(editor.getValue());
       });
 
-  });
-</script>
+    });
+  </script>

@@ -124,7 +124,7 @@ class ScriptsController < ApplicationController
     authorize! :run, @script
     path="#{Rails.root}/data/#{@script.path}"
     beginning = Time.now
-    data=`#{path}`
+    data=`#{path} 2>&1 &!`
     time=Time.now-beginning
     
     require 'redcarpet'

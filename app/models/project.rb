@@ -20,8 +20,6 @@ class Project < ActiveRecord::Base
   
 	validates :name, 
 		presence: true, 
-		# Länge zwischen 5 und 50 Zeichen
-		length: { minimum: 5, maximum:50 },
 		# Name einzigartig
 		uniqueness: { case_sensitive: false }
 

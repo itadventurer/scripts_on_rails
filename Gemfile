@@ -7,6 +7,7 @@ gem 'cancan', '~> 1.6.8'
 gem 'yaml_db', "~> 0.2.3"
 gem 'crummy'
 gem 'redcarpet'
+gem 'js-routes'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

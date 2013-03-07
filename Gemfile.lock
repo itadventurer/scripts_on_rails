@@ -60,6 +60,8 @@ GEM
     jquery-ui-rails (4.0.1)
       jquery-rails
       railties (>= 3.1.0)
+    js-routes (0.8.6)
+      rails (>= 3.2)
     json (1.7.7)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -132,6 +134,7 @@ DEPENDENCIES
   devise (~> 2.2.0)
   jquery-rails
   jquery-ui-rails
+  js-routes
   rails (= 3.2.12)
   redcarpet
   sass-rails (~> 3.2.3)
