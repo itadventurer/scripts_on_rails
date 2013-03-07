@@ -12,7 +12,8 @@
   display:none;
   #ide-editor {
     width: 70%;
-    height:100%;
+    top:40px;
+    bottom:0;
     float:left;
   }
   #ide-console {

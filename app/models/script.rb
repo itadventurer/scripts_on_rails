@@ -63,6 +63,7 @@ class Script < ActiveRecord::Base
       txt=compile(txt)
       ### /END
       f.puts("#!" + self.project.language.bin)
+      f.puts("#coding=utf-8")
       f.puts("#" + I18n.t('misc.gen_str'))
       f.puts(txt)
       f.chmod(0700)

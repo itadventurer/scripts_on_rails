@@ -82,14 +82,12 @@
         });
 
       });
+//IDE
 var ide_editor=ace.edit("ide-editor");
 ide_editor.setTheme("ace/theme/monokai");
 ide_editor.getSession().setMode("ace/mode/<%=@project.language.name%>");
 <%=@project.language.editor_config%>
-$(function(){
-    $('#myform').submit(function(){
-      $('#code').val(editor.getValue());
-      });
-
-    });
-  </script>
+ide_editor.getSession().on('change',function(e) {
+    // Edited
+});
+</script>
