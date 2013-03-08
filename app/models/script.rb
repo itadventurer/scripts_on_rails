@@ -10,10 +10,11 @@
 #  description :text
 #  code        :text
 #  path        :string(255)
+#  params      :string(255)
 #
 
 class Script < ActiveRecord::Base
-  attr_accessible :name, :project_id, :description, :code
+  attr_accessible :name, :project_id, :description, :code, :params
   belongs_to :project
 
 	validates :name, 
@@ -68,5 +69,16 @@ class Script < ActiveRecord::Base
       f.puts(txt)
       f.chmod(0700)
     end
+  end
+
+  def getParams
+    ret={}
+    return ret if params.nil?
+    self.params.split(',').each do |param|
+      parray=param.split ':'
+      parray[1]='string' if parray[1].nil?
+      ret[parray[0]]=parray[1]
+    end
+    ret
   end
 end

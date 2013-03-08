@@ -13,6 +13,13 @@
     <% end %>
   <% end %>
 </div>
+
+<h3><%= t 'scripts.params' %></h3>
+<% @script.getParams.each do |name,type| %>
+ <label for="param_<%=name%>"><%=name%></label>
+ <input type="text" class="param_<%=type%> param" id="param_<%=name%>" name="<%=name%>"/>
+<% end %>
+
 <h3><%= t 'scripts.output' %></h3>
 <ul class="nav nav-tabs" id="nav-run">
   <li class="active">
@@ -30,11 +37,20 @@
 </dl>
 <script type="text/javascript">
   run=function(){
-    $.get("<%= project_script_exec_path(@project,@script,format: :json)%>", function(data){
+    params={};
+    $('.param').each(function(){
+        params[$(this).attr('name')]=$(this).val();
+      });
+    console.log(params);
+    $.ajax({
+      url:Routes.project_script_exec_path(<%=@project.id%>,<%=@script.id%>),
+      data:params,
+      success:function(data){
         $('#run-raw').text(data.data);
         $('#run-md').html(data.markdown);
         $('#run_time').text(data.time + ' s');
-        });
+      }
+    });
   };
 $(function(){
     run();
@@ -44,20 +60,20 @@ $(function(){
       $('#run_time').text('');
       run()
 
-    });
+      });
     $('#nav-md').click(function(){
       $('#nav-run').children().removeClass('active');
       $('#nav-md').parent().addClass('active');
       $('#run-raw').hide();
       $('#run-md').show();
-    });
+      });
     $('#nav-raw').click(function(){
       $('#nav-run').children().removeClass('active');
       $('#nav-raw').parent().addClass('active');
       $('#run-md').hide();
       $('#run-raw').show();
-    });
-  });
+      });
+});
 
 
 </script>

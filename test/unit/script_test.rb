@@ -10,6 +10,7 @@
 #  description :text
 #  code        :text
 #  path        :string(255)
+#  params      :string(255)
 #
 
 require 'test_helper'

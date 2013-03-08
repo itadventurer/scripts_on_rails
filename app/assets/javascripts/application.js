@@ -86,4 +86,5 @@ $(function(){
     e.preventDefault();
     $('#ide').show();
   });
+  $('.param_date').datepicker();
 });

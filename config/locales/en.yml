@@ -29,10 +29,12 @@ en:
     rerun: "Rerun"
     run_raw: "Raw"
     run_md: "Markdown"
+    params: "Params"
     help:
       name: "The name of the Script"
       description: "A short description (use markdown!)"
       code: "Write your code"
+      params: "Add Params to your script. They will be added to the argv.\n Format: [name:type],[name:type]..."
   misc:
     appname: "ScriptsOnRails"
     sure?: "Are you sure?"

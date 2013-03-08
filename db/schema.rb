@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304094530) do
+ActiveRecord::Schema.define(:version => 20130307125248) do
 
   create_table "languages", :force => true do |t|
     t.string   "name"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20130304094530) do
     t.text     "description"
     t.text     "code"
     t.string   "path"
+    t.string   "params"
   end
 
   create_table "users", :force => true do |t|
@@ -64,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20130304094530) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "vars"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

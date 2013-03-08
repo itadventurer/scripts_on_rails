@@ -22,6 +22,11 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
+    <%= f.label :params %>
+    <%= f.text_field :params %>
+    <span class="help-inline"><%= t('scripts.help.params') %></span>
+  </div>
+  <div class="field">
     <%= f.label :code %>
     <span class="help-block"><%= t('scripts.help.code') %></span>
     <dl>
