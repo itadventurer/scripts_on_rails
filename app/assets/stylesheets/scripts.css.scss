@@ -13,12 +13,13 @@
   #ide-editor {
     width: 70%;
     top:40px;
-    bottom:0;
+    bottom:10px;
     float:left;
   }
   #ide-console {
     height: 100%;
     width: 30%;
+    bottom: 10px;
     float: right;
     overflow:auto;
   }

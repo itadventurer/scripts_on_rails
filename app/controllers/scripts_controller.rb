@@ -133,7 +133,7 @@ class ScriptsController < ApplicationController
             parameters+=params[k] 
           end
         else
-          parameters+=params[k].gsub(/[^ a-zA-Z1-9,\.\-_]/u,'')
+          parameters+=params[k].gsub(/[^ a-zA-Z0-9,\.\-_]/u,'')
         end
       end
     end

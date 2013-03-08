@@ -35,6 +35,9 @@ run=function(){
     subWait();
   });
 };
+$.datepicker.setDefaults({
+  dateFormat:"yy-mm-dd"
+});
 $(function(){
   $('#ide-nav .script a').click(function(e){
     e.preventDefault();
@@ -86,5 +89,6 @@ $(function(){
     e.preventDefault();
     $('#ide').show();
   });
+  
   $('.param_date').datepicker();
 });
