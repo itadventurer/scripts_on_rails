@@ -125,14 +125,16 @@ class ScriptsController < ApplicationController
     @script.getParams.each do |key,type|
       parameters+=' --' + key.gsub(/[^a-zA-Z_]/u,'') + '='
       k=key.to_sym
-      parameters[key]='' if params[k].nil?
-      case type
-      when 'date'
-        if params[k].match(/^\d{4}\-\d{2}\-\d{2}$/)
-          parameters+=params[k] 
-        end
+      if params[k].nil?
       else
-        parameters+=params[k].gsub(/[^ a-zA-Z1-9,\.\-_]/u,'')
+        case type
+        when 'date'
+          if params[k].match(/^\d{4}\-\d{2}\-\d{2}$/)
+            parameters+=params[k] 
+          end
+        else
+          parameters+=params[k].gsub(/[^ a-zA-Z1-9,\.\-_]/u,'')
+        end
       end
     end
     puts parameters
