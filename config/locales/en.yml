@@ -35,6 +35,13 @@ en:
       description: "A short description (use markdown!)"
       code: "Write your code"
       params: "Add Params to your script. They will be added to the argv.\n Format: [name:type],[name:type]..."
+    ide:
+      close: "Close"
+      save: "Save"
+      save_all: "Save all"
+      run: "Run"
+      console: "Console"
+      clean: "Clear"
   misc:
     appname: "ScriptsOnRails"
     sure?: "Are you sure?"

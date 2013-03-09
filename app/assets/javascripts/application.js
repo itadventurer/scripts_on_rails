@@ -16,79 +16,93 @@
 //= require bootstrap
 //= require js-routes
 //= require_tree .
-waitcount=0;
-addWait=function(){
-  if(waitcount==0)
-    $('#ide-run i').html('<img src="/assets/ajax-loader.gif" />');
-  waitcount++;
-}
-subWait=function(){
-  waitcount--;
-  if(waitcount<=0)
-    $('#ide-run i').empty();
-}
 
-run=function(){
-  addWait();
-  $.get(Routes.project_script_exec_path(project_id,script_id), function(data){
-    $('#ide-console-content').append('<strong>Script:</strong> ' + script_name + ' <strong>Time:</strong> ' + data.time + '<pre>' + data.data + '</pre>');
-    subWait();
-  });
-};
 $.datepicker.setDefaults({
   dateFormat:"yy-mm-dd"
 });
 $(function(){
+  scripts={};
+  change_active=true;
+  scripts[script_id]=new Script(script_id,function(){});
+
+
+  // OnChange
+  ide_editor.getSession().on('change', function(e) {
+    if(change_active)
+      $('#ide-nav .active .edited').show();
+  });
+
+  // Open Script
   $('#ide-nav .script a').click(function(e){
     e.preventDefault();
-    that=this
-    $.get(Routes.project_script_path(project_id,$(this).attr('script_id')),function(data){
-      script_id=data.id;
-      script_name=data.name;
-      ide_editor.setValue(data.code);
-      $('#ide-nav .script').removeClass('active');
-      $(that).parent().addClass('active');
-    });
+    var id=$(this).attr('script_id');
+    scripts[script_id].setCode(ide_editor.getValue());
+    scripts[script_id].lastLine=ide_editor.selection.getCursor();
+    scripts[script_id].lastVisibleLine=ide_editor.getFirstVisibleRow();
+    script_id=id;
+    change_active=false;
+    callback=function(script){
+        ide_editor.setValue(script.getCode());
+        ide_editor.navigateTo(script.lastLine.row,script.lastLine.column);
+        ide_editor.scrollToLine(script.lastVisibleLine);
+        ide_editor.focus();
+        change_active=true;
+    }
+    if(typeof(scripts[id])=='undefined'){
+      scripts[id]=new Script(id,function(script){
+        callback(script);
+      });
+    } else {
+      callback(scripts[id]);
+    }
+    $('#ide-nav .script').removeClass('active');
+    $(this).parent().addClass('active');
   });
+
+  // Safe Script
   safe_bgc=$('#ide-save').css('backgroundColor');
   $('#ide-save').click(function(e){
-    e.preventDefault();
-    $.ajax({
-      type:'put',
-      dataType:'json',
-      url:Routes.project_script_path(project_id,script_id),
-      data:{
-        script:{
-          code:ide_editor.getValue()
-        }
-      },
-      success: function(data){
-        $('#ide-save').animate({backgroundColor:'green'},500).animate({backgroundColor:safe_bgc},500);
-      }
+    scripts[script_id].setCode(ide_editor.getValue());
+    scripts[script_id].save(function(data){
+      $('#ide-save').animate({backgroundColor:'green'},500).animate({backgroundColor:safe_bgc},500);
     });
+    $('#ide-nav .active .edited').hide();
+    e.preventDefault();
   });
+
+  // Run
   $('#ide-run').click(function(e){
     e.preventDefault();
-    run();
+    Scripts.run(function(data){
+      $('#ide-console-content').append('<strong>Script:</strong> ' + scripts[script_id].getName() + ' <strong>Time:</strong> ' + data.time + '<pre>' + data.data + '</pre>');
+      subWait();
+    });
   });
+
+  // Clean console
   $('#ide-clean').click(function(e){
     e.preventDefault();
     $('#ide-console-content').empty();
   });
+
+  // Close ide
   $('#ide-close').click(function(e){
     e.preventDefault();
     $('#ide').hide();
   });
-  $('#ide-fullscreen').click(function(e){
-    window.addEventListener("beforeunload", function (e) {
-      var confirmationMessage = "";
 
-      (e || window.event).returnValue = confirmationMessage;     //Gecko + IE
-      return confirmationMessage;                                //Webkit, Safari, Chrome etc.
-    });
+  // Open IDE
+  $('#ide-fullscreen').click(function(e){
+    /* window.addEventListener("beforeunload", function (e) {
+       var confirmationMessage = "";
+
+       (e || window.event).returnValue = confirmationMessage;     //Gecko + IE
+       return confirmationMessage;                                //Webkit, Safari, Chrome etc.
+       });*/
     e.preventDefault();
     $('#ide').show();
   });
-  
+
+  // Datepicker
   $('.param_date').datepicker();
 });
