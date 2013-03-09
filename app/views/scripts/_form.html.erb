@@ -55,7 +55,7 @@
           next if script.name.nil?
         %>
         <li class="<%= "active" if (script.name == @script.name) %> script">
-        <%= link_to project_script_path(@project,script), script_id:script.id  do %>
+        <%= link_to project_script_path(@project,script), script_id:script.id, id: "script_" + script.id.to_s()  do %>
           <%= script.name %>
           <span class="edited">*</span>
         <% end %>

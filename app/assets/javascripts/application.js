@@ -31,6 +31,24 @@ $(function(){
     if(change_active)
       $('#ide-nav .active .edited').show();
   });
+  // Strg+S
+  ide_editor.commands.addCommand({
+    name: 'Save',
+    bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
+    exec: function(editor) {
+      $('#ide-save').click();
+    },
+    readOnly: false // false if this command should not apply in readOnly mode
+  });
+  // Strg+R (run)
+  ide_editor.commands.addCommand({
+    name: 'Run',
+    bindKey: {win: 'Ctrl-R',  mac: 'Command-R'},
+    exec: function(editor) {
+      $('#ide-run').click();
+    },
+    readOnly: false // false if this command should not apply in readOnly mode
+  });
 
   // Open Script
   $('#ide-nav .script a').click(function(e){
@@ -42,11 +60,11 @@ $(function(){
     script_id=id;
     change_active=false;
     callback=function(script){
-        ide_editor.setValue(script.getCode());
-        ide_editor.navigateTo(script.lastLine.row,script.lastLine.column);
-        ide_editor.scrollToLine(script.lastVisibleLine);
-        ide_editor.focus();
-        change_active=true;
+      ide_editor.setValue(script.getCode());
+      ide_editor.navigateTo(script.lastLine.row,script.lastLine.column);
+      ide_editor.scrollToLine(script.lastVisibleLine);
+      ide_editor.focus();
+      change_active=true;
     }
     if(typeof(scripts[id])=='undefined'){
       scripts[id]=new Script(id,function(script){
@@ -63,17 +81,30 @@ $(function(){
   safe_bgc=$('#ide-save').css('backgroundColor');
   $('#ide-save').click(function(e){
     scripts[script_id].setCode(ide_editor.getValue());
-    scripts[script_id].save(function(data){
-      $('#ide-save').animate({backgroundColor:'green'},500).animate({backgroundColor:safe_bgc},500);
+    scripts[script_id].save(function(data,script){
+        $('#script_' + script.id).animate({backgroundColor:'green'},700).animate({backgroundColor:safe_bgc},700);
     });
     $('#ide-nav .active .edited').hide();
+    e.preventDefault();
+  });
+
+  // Safe All Scripts
+  $('#ide-save-all').click(function(e){
+    scripts[script_id].setCode(ide_editor.getValue());
+      console.log(scripts);
+    for(id in scripts){
+      scripts[id].save(function(data,script){
+        $('#script_' + script.id).animate({backgroundColor:'green'},700).animate({backgroundColor:safe_bgc},700);
+      });
+    }
+    $('#ide-nav .edited').hide();
     e.preventDefault();
   });
 
   // Run
   $('#ide-run').click(function(e){
     e.preventDefault();
-    Scripts.run(function(data){
+    scripts[script_id].run(function(data){
       $('#ide-console-content').append('<strong>Script:</strong> ' + scripts[script_id].getName() + ' <strong>Time:</strong> ' + data.time + '<pre>' + data.data + '</pre>');
       subWait();
     });
@@ -101,6 +132,7 @@ $(function(){
        });*/
     e.preventDefault();
     $('#ide').show();
+    ide_editor.focus();
   });
 
   // Datepicker

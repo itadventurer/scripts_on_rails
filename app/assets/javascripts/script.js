@@ -17,7 +17,7 @@ Script=function(id,callback){
   this.lastLine=1;
   this.lastVisibleLine=0;
   this.update=function(callback){
-    that=this;
+    var that=this;
     $.get(Routes.project_script_path(project_id,id),function(data){
       that.data=data;
       callback(that);
@@ -33,16 +33,17 @@ Script=function(id,callback){
     this.data.code=code;
   }
   this.save=function(callback){
+    var that=this;
     $.ajax({
       type:'put',
       dataType:'json',
-      url:Routes.project_script_path(project_id,id),
+      url:Routes.project_script_path(project_id,this.id),
       data:{
         script:{
           code:this.data.code
         }
       },
-      success: callback
+      success: function(data){callback(data,that);}
     });
   }
   this.run=function(callback){
@@ -50,37 +51,4 @@ Script=function(id,callback){
   }
   // "Constructor"
   this.update(callback);
-}
-
-
-Scripts={
-  scripts:{},
-
-  run:function(callback){
-    addWait();
-    $.get(Routes.project_script_exec_path(project_id,script_id), callback);
-  },
-
-  updateScript:function(id){
-    $.get(Routes.project_script_path(project_id,id),function(data){
-      Scripts.scripts[data.id]=data;
-      script_id=data.id;
-      script_name=data.name;
-      ide_editor.setValue(data.code);
-    });
-  },
-
-  saveScript:function(id,onSuccess){
-    $.ajax({
-      type:'put',
-    dataType:'json',
-    url:Routes.project_script_path(project_id,id),
-    data:{
-      script:{
-        code:Scripts.scripts[id].code
-      }
-    },
-    success: onSuccess
-    });
-  }
 }
