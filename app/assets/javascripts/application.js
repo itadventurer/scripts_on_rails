@@ -124,12 +124,12 @@ $(function(){
 
   // Open IDE
   $('#ide-fullscreen').click(function(e){
-    /* window.addEventListener("beforeunload", function (e) {
+     window.addEventListener("beforeunload", function (e) {
        var confirmationMessage = "";
 
        (e || window.event).returnValue = confirmationMessage;     //Gecko + IE
        return confirmationMessage;                                //Webkit, Safari, Chrome etc.
-       });*/
+       });
     e.preventDefault();
     $('#ide').show();
     ide_editor.focus();
