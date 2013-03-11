@@ -21,6 +21,7 @@ $.datepicker.setDefaults({
   dateFormat:"yy-mm-dd"
 });
 $(function(){
+  if(typeof(ide_editor)=='undefined') return true;
   scripts={};
   change_active=true;
   scripts[script_id]=new Script(script_id,function(){});
