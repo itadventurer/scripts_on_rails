@@ -17,6 +17,7 @@ class Project < ActiveRecord::Base
   has_many :members
   has_many :users, through: :members
   belongs_to :language
+  default_scope order('name COLLATE NOCASE ASC')
   
 	validates :name, 
 		presence: true, 

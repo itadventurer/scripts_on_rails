@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :vars
   attr_accessible :is_admin, :name, :surname
+  default_scope order('email COLLATE NOCASE ASC')
   
   
   has_many  :members

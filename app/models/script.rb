@@ -16,6 +16,7 @@
 class Script < ActiveRecord::Base
   attr_accessible :name, :project_id, :description, :code, :params
   belongs_to :project
+  default_scope order('name COLLATE NOCASE ASC')
 
   validates :name, 
     presence: true, 
