@@ -17,26 +17,28 @@ class Script < ActiveRecord::Base
   attr_accessible :name, :project_id, :description, :code, :params
   belongs_to :project
 
-	validates :name, 
-		presence: true, 
-		# Länge zwischen 5 und 50 Zeichen
-		length: { minimum: 5, maximum:50 },
-		# Name einzigartig
-		uniqueness: { case_sensitive: false }
+  validates :name, 
+    presence: true, 
+    # Länge zwischen 5 und 50 Zeichen
+    length: { minimum: 5, maximum:50 },
+    # Name einzigartig
+    uniqueness: { case_sensitive: false }
   validates :description,
-    presence: true
-  validates :code,
     presence: true
 
 
   # After Save
   before_save :save_file
+  after_create :create_dirs
+
+  def create_dirs
+  end
   def compile(txt)
     out=[]
 
     txt.lines.each do |line|
-      inc=line.scan(/^#!include (.*)/)
-      print inc
+      nline=line
+      inc=nline.scan(/^#!include (.*)/)
       if(inc.length!=0)
         inc=inc[0][0].strip
         include_script=self.project.scripts.find_by_name(inc)
@@ -45,9 +47,13 @@ class Script < ActiveRecord::Base
         out.append line
         out.append("# /end #{inc}")
       else
+        pname=self.project.name.gsub(/[^a-bA-Z0-9]/u,'')
+        line=line.to_s.sub(/##public_data_path##/,"public/data/#{pname}/")
+        line=line.to_s.sub(/##private_data_path##/,"data/scriptdata/#{pname}/")
         out.append line
       end
-      
+
+
     end
     out
   end
