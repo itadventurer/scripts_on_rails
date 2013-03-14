@@ -126,6 +126,9 @@ class ScriptsController < ApplicationController
       parameters+=' --' + key.gsub(/[^a-zA-Z_]/u,'') + '='
       k=key.to_sym
       if params[k].nil?
+        if type=='user'
+          parameters+=@project.members.find_by_user_id(current_user.id).vars
+        end
       else
         case type
         when 'date'
