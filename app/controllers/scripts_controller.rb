@@ -125,6 +125,7 @@ class ScriptsController < ApplicationController
     @script.getParams.each do |key,type|
       parameters+=' --' + key.gsub(/[^a-zA-Z_]/u,'') + '='
       k=key.to_sym
+      puts params, params[k]
       if params[k].nil?
         if type=='user'
           parameters+=@project.members.find_by_user_id(current_user.id).vars
@@ -134,6 +135,12 @@ class ScriptsController < ApplicationController
         when 'date'
           if params[k].match(/^\d{4}\-\d{2}\-\d{2}$/)
             parameters+=params[k] 
+          end
+        when 'file'
+          require 'tempfile'
+          Tempfile.new('foo') do |file|
+            uploaded_io = params[k]
+            file.write(uploaded_io.read)
           end
         else
           parameters+=params[k].gsub(/[^ a-zA-Z0-9,\.\-_]/u,'')
