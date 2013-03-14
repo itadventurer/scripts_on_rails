@@ -21,6 +21,8 @@ $.datepicker.setDefaults({
   dateFormat:"yy-mm-dd"
 });
 $(function(){
+  // Datepicker
+  $('.param_date').datepicker();
   if(typeof(ide_editor)=='undefined') return true;
   scripts={};
   change_active=true;
@@ -145,6 +147,4 @@ $(function(){
     ide_editor.focus();
   });
 
-  // Datepicker
-  $('.param_date').datepicker();
 });
