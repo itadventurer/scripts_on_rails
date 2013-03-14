@@ -41,6 +41,15 @@ $(function(){
     },
     readOnly: false // false if this command should not apply in readOnly mode
   });
+  // Strg+Shift+S
+  ide_editor.commands.addCommand({
+    name: 'Save all',
+    bindKey: {win: 'Ctrl-Shift-S',  mac: 'Command-Shift-S'},
+    exec: function(editor) {
+      $('#ide-save-all').click();
+    },
+    readOnly: false // false if this command should not apply in readOnly mode
+  });
   // Strg+R (run)
   ide_editor.commands.addCommand({
     name: 'Run',
