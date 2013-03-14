@@ -9,6 +9,7 @@
 #  can_create :boolean
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  vars       :string(255)
 #
 
 require 'test_helper'

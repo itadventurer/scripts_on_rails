@@ -11,17 +11,33 @@
     </div>
   <% end %>
 
+  <% if @member.user_id.nil? %>
+    <div class="field">
+      <%= f.label :user_id %>
+      <%= select(:member,:user_id,User.all.collect {|l| [getName(l), l.id]}) %>
+    </div>
+  <% else %>
+    <div class="field">
+      <%= f.label :user_id %>
+      <%= getName(@member.user) %>
+    </div>
+  <% end %>
+
+  <% if can? :change_rights, @member %>
+    <div class="field">
+      <%= f.label :is_admin %>
+      <%= f.check_box :is_admin %>
+    </div>
+    <div class="field">
+      <%= f.label :can_create %>
+      <%= f.check_box :can_create %>
+    </div>
+  <% end %>
+
   <div class="field">
-    <%= f.label :user_id %>
-    <%= select(:member,:user_id,User.all.collect {|l| [l.email, l.id]}) %>
-  </div>
-  <div class="field">
-    <%= f.label :is_admin %>
-    <%= f.check_box :is_admin %>
-  </div>
-  <div class="field">
-    <%= f.label :can_create %>
-    <%= f.check_box :can_create %>
+    <%= f.label :vars %>
+    <%= f.text_field :vars %>
+    <span class="help-block"><%= simple_format t('members.vars') %></span>
   </div>
   <div class="actions">
     <%= f.submit %>

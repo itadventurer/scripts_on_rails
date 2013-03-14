@@ -19,6 +19,14 @@ en:
   members:
     edit: "Edit"
     new: "New"
+    all: "Members"
+    admin_yes: "Yes"
+    admin_no: "No"
+    is_admin: "Admin?"
+    can_create: "Can create scripts?"
+    create_yes: "Yes"
+    create_no: "No"
+    vars: "Add Custom Vars\n Format: [name:content],[name:content]..."
   scripts:
     new: "New Script"
     all: "Scripts"

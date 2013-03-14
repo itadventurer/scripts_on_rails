@@ -1,29 +1,51 @@
-<h1>Listing members</h1>
+<% provide(:title, t('members.all'))%>
+<% if(can? :create, (@members || Member)) %>
+  <div class="btn-group">
+    <%= link_to(new_project_member_path(@project), class: 'btn btn-primary') do %>
+      <i class="icon-file"></i>
+      <%=t('members.new')%>
+    <% end %>
+  </div>
+<% end %>
 
-<table>
-  <tr>
-    <th>Project</th>
-    <th>User</th>
-    <th>Is admin</th>
-    <th>Can create</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
 
 <% @members.each do |member| %>
-  <tr>
-    <td><%= member.project_id %></td>
-    <td><%= member.user_id %></td>
-    <td><%= member.is_admin %></td>
-    <td><%= member.can_create %></td>
-    <td><%= link_to 'Show', project_member_path(@project,member) %></td>
-    <td><%= link_to 'Edit', edit_project_member_path(@project,member) %></td>
-    <td><%= link_to 'Destroy', project_member_path(@project,member), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+  <hr />
+  <div>
+    <h3><%= getName(member.user) %></h3>
+    <dl>
+      <dt><%=t('members.is_admin') %></dt>
+      <dd><%= 
+      if member.is_admin?  
+        t('members.admin_yes')  
+      else  
+        t('members.admin_no')  
+      end
+      %></dd>
+      <dt><%=t('members.can_create') %></dt>
+      <dd><%= 
+      if member.can_create?  
+        t('members.create_yes')  
+      else  
+        t('members.create_no')  
+      end
+      %></dd>
+      <% if can? :view_vars, member %>
+        <dt><%=t('members.user_vars')%></dt>
+        <dd><%= member.vars %></dd>
+      <% end %>
+    </dl>
+    <div class="btn-group">
+      <% if can? :update, member %>
+        <%=link_to edit_project_member_path(@project,member), class:"btn" do %>
+          <i class="icon-pencil"></i>
+        <% end %>
+      <% end %>
+      <% if can? :destroy, member %>
+        <%=link_to project_member_path(@project,member), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
+          <i class="icon-trash"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Member', new_project_member_path(@project) %>

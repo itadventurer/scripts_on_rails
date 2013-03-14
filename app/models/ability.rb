@@ -39,6 +39,11 @@ class Ability
     can :manage, Script, :project => {:members => { user_id: user.id, is_admin: true }}
 
     can :read, Member, user_id: user.id
+    can [:update,:edit], Member, user_id: user.id
+    can :view_vars, Member, user_id: user.id
+    can :change_rights, Member do |m|
+      can? :manage, m.project
+    end
 
 
     can :manage, :all if user.is_admin?
