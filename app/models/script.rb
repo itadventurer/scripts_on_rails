@@ -49,8 +49,10 @@ class Script < ActiveRecord::Base
         out.append("# /end #{inc}")
       else
         pname=self.project.name.gsub(/[^a-bA-Z0-9]/u,'')
-        line=line.to_s.sub(/##public_data_path##/,"public/data/#{pname}/")
-        line=line.to_s.sub(/##private_data_path##/,"data/scriptdata/#{pname}/")
+        line=line.to_s.sub(/##public_data_path##/i,"public/data/#{pname}/")
+        line=line.to_s.sub(/##private_data_path##/i,"data/scriptdata/#{pname}/")
+        line=line.to_s.sub(/##script_name##/i,self.name);
+        line=line.to_s.sub(/##project_name##/i,self.project.name);
         out.append line
       end
 

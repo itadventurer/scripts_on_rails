@@ -31,9 +31,11 @@
     <span class="help-block"><%= t('scripts.help.code') %></span>
     <dl>
       <dt>How to include other scripts?</dt>
-      <dd><pre>#!include [script-name]</pre></dd>
+      <dd><pre>#!INCLUDE [script-name]</pre></dd>
       <dt>How to get paths to save some data?</dt>
-      <dd><pre>##public_data_path##</pre> and <pre>##private_data_path##</pre></dd>
+      <dd><pre>##PUBLIC_DATA_PATH##</pre> and <pre>##PRIVATE_DATA_PATH##</pre></dd>
+      <dt>Need some names?</dt>
+      <dd><pre>##SCRIPT_NAME##</pre> and <pre>##PROJECT_NAME##</pre></dd>
       </dl>
       <%= link_to '#', id: 'ide-fullscreen', class: 'btn' do %>
         <i class="icon-fullscreen"></i> <%= t('scripts.fullscreen') %>
