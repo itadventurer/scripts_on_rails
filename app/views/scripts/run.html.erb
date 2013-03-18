@@ -15,7 +15,7 @@
 </div>
 
 <h3><%= t 'scripts.params' %></h3>
-<form enctype="multipart/form-data" id="run-form">
+<form enctype="multipart/form-data" id="run-form" method="post" action="<%= project_script_exec_path(@project,@script) %>">
 <% @script.getParams.each do |name,type| %>
  <label for="param_<%=name%>"><%=name%></label>
  <% if type=='file' %>
@@ -24,6 +24,7 @@
  <input type="text" class="param_<%=type%> param" id="param_<%=name%>" name="<%=name%>"/>
  <% end %>
 <% end %>
+<input type="submit" />
 </form>
 
 <h3><%= t 'scripts.output' %></h3>
@@ -43,10 +44,12 @@
 </dl>
 <script type="text/javascript">
   run=function(){
-    var fdata=new FormData($('form')[0]);
+    var form=$("#run-form").ajaxForm(function(){
+        });
+/*    var fdata=new FormData($('form')[0]);
 /*    $('.param').each(function(){
         fdata.append($(this).attr('name'),$(this).val());
-        });*/
+        });*
     console.log(fdata);
     $.ajax({
       url:Routes.project_script_exec_path(<%=@project.id%>,<%=@script.id%>),
@@ -60,7 +63,7 @@
         $('#run-md').html(data.markdown);
         $('#run_time').text(data.time + ' s');
       }
-    });
+    });*/
   };
 $(function(){
     run();

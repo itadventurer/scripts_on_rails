@@ -16,6 +16,6 @@ class Member < ActiveRecord::Base
   attr_accessible :can_create, :is_admin, :project_id, :user_id, :vars
   belongs_to :project
   belongs_to :user
-  validates_format_of :vars, :with => /^[a-zA-Z0-9-_?*,:]*$/
+  validates_format_of :vars, :with => /^[a-zA-Z0-9\-_?*,:]*$/
 
 end

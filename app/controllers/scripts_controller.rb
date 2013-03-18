@@ -125,7 +125,6 @@ class ScriptsController < ApplicationController
     @script.getParams.each do |key,type|
       parameters+=' --' + key.gsub(/[^a-zA-Z_]/u,'') + '='
       k=key.to_sym
-      puts params, params[k]
       if params[k].nil?
         if type=='user'
           parameters+=@project.members.find_by_user_id(current_user.id).vars
@@ -138,16 +137,17 @@ class ScriptsController < ApplicationController
           end
         when 'file'
           require 'tempfile'
-          Tempfile.new('foo') do |file|
+          Tempfile.open('foo') do |file|
+            file.binmode
             uploaded_io = params[k]
             file.write(uploaded_io.read)
+            parameters+=file.path
           end
         else
           parameters+=params[k].gsub(/[^ a-zA-Z0-9,\.\-_]/u,'')
         end
       end
     end
-    puts parameters
 
     authorize! :run, @script
     path="#{Rails.root}/data/#{@script.path}"
