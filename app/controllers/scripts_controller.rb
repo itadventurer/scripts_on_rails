@@ -8,7 +8,7 @@ class ScriptsController < ApplicationController
     add_crumb I18n.t('projects.my'), projects_path
     add_crumb @project.name, project_path(@project)
   end
-  
+
   # GET /scripts
   # GET /scripts.json
   def index
@@ -136,18 +136,22 @@ class ScriptsController < ApplicationController
             parameters+=params[k] 
           end
         when 'file'
-          require 'tempfile'
-          Tempfile.open('foo') do |file|
-            file.binmode
-            uploaded_io = params[k]
-            file.write(uploaded_io.read)
-            parameters+=file.path
+          if params[k]!=""
+            require 'tempfile'
+            Tempfile.open('foo') do |file|
+              file.binmode
+              uploaded_io = params[k]
+              file.write(uploaded_io.read)
+              parameters+=file.path
+            end
           end
         else
           parameters+=params[k].gsub(/[^ a-zA-Z0-9,\.\-_]/u,'')
         end
       end
     end
+
+    puts parameters
 
     authorize! :run, @script
     path="#{Rails.root}/data/#{@script.path}"
