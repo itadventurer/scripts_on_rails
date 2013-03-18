@@ -125,29 +125,25 @@ class ScriptsController < ApplicationController
     @script.getParams.each do |key,type|
       parameters+=' --' + key.gsub(/[^a-zA-Z_]/u,'') + '='
       k=key.to_sym
-      if params[k].nil?
-        if type=='user'
-          parameters+=@project.members.find_by_user_id(current_user.id).vars
+      case type
+      when 'date'
+        if (not params[k].nil?) and params[k].match(/^\d{4}\-\d{2}\-\d{2}$/)
+          parameters+=params[k] 
+        end
+      when 'user'
+        parameters+=@project.members.find_by_user_id(current_user.id).vars
+      when 'file'
+        if (not params[k].nil?) and params[k]!=""
+          require 'tempfile'
+          Tempfile.open('foo') do |file|
+            file.binmode
+            uploaded_io = params[k]
+            file.write(uploaded_io.read)
+            parameters+=file.path
+          end
         end
       else
-        case type
-        when 'date'
-          if params[k].match(/^\d{4}\-\d{2}\-\d{2}$/)
-            parameters+=params[k] 
-          end
-        when 'file'
-          if params[k]!=""
-            require 'tempfile'
-            Tempfile.open('foo') do |file|
-              file.binmode
-              uploaded_io = params[k]
-              file.write(uploaded_io.read)
-              parameters+=file.path
-            end
-          end
-        else
-          parameters+=params[k].gsub(/[^ a-zA-Z0-9,\.\-_]/u,'')
-        end
+        parameters+=params[k].gsub(/[^ a-zA-Z0-9,\.\-_]/u,'') unless params[k].nil?
       end
     end
 

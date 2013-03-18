@@ -15,13 +15,15 @@
 </div>
 
 <h3><%= t 'scripts.params' %></h3>
-<form enctype="multipart/form-data" id="run-form" method="post" action="<%= project_script_exec_path(@project,@script) %>">
+<form enctype="multipart/form-data" id="run-form" method="post" action="<%= project_script_exec_path(@project,@script,format:'json') %>">
 <% @script.getParams.each do |name,type| %>
+ <% if type!='user' %>
  <label for="param_<%=name%>"><%=name%></label>
- <% if type=='file' %>
+  <% if type=='file' %>
  <input type="file" class="param_<%=type%> param" id="param_<%=name%>" name="<%=name%>"/>
  <% else %>
  <input type="text" class="param_<%=type%> param" id="param_<%=name%>" name="<%=name%>"/>
+ <% end %>
  <% end %>
 <% end %>
 </form>
@@ -46,32 +48,32 @@
   };
 $(function(){
     $("#run-form").ajaxForm({
-      beforeSubmit:function(){
-        $('#run-raw').text("running...");
-        $('#run-md').html("<p>running...</p>");
-        $('#run_time').text('');
-      },
-      success:function(data){
-      $('#run-raw').text(data.data);
-      $('#run-md').html(data.markdown);
-      $('#run_time').text(data.time + ' s');
-      }
-    });
+beforeSubmit:function(){
+$('#run-raw').text("running...");
+$('#run-md').html("<p>running...</p>");
+$('#run_time').text('');
+},
+success:function(data){
+$('#run-raw').text(data.data);
+$('#run-md').html(data.markdown);
+$('#run_time').text(data.time + ' s');
+}
+});
     $("#run-form").submit();
     $('#rerun').click(function(){
       $("#run-form").submit();
-    });
+      });
     $('#nav-md').click(function(){
       $('#nav-run').children().removeClass('active');
       $('#nav-md').parent().addClass('active');
       $('#run-raw').hide();
       $('#run-md').show();
-   });
-    $('#nav-raw').click(function(){
-      $('#nav-run').children().removeClass('active');
-      $('#nav-raw').parent().addClass('active');
-      $('#run-md').hide();
-      $('#run-raw').show();
+      });
+$('#nav-raw').click(function(){
+    $('#nav-run').children().removeClass('active');
+    $('#nav-raw').parent().addClass('active');
+    $('#run-md').hide();
+    $('#run-raw').show();
     });
 });
 
