@@ -83,6 +83,7 @@ class ScriptsController < ApplicationController
   # PUT /scripts/1
   # PUT /scripts/1.json
   def update
+  $request = request
     @project=Project.find(params[:project_id])
     @script = @project.scripts.find(params[:id])
 
