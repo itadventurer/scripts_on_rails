@@ -128,7 +128,7 @@ class ScriptsController < ApplicationController
       v=v.split(':')
       user_params[v[0]]=v[1] if v.length==2
     end
-    puts user_params
+    dir=nil # Delete the directory when finish the script execution
     @script.getParams.each do |key,type|
       parameters+=' --' + key.gsub(/[^a-zA-Z_]/u,'') + '='
       k=key.to_sym
@@ -141,12 +141,12 @@ class ScriptsController < ApplicationController
         parameters+=user_params[key] unless user_params[key].nil?
       when 'file'
         if (not params[k].nil?) and params[k]!=""
-          require 'tempfile'
-          Tempfile.open('foo') do |file|
+          dir=Dir.mktmpdir
+          uploaded_io = params[k]
+          File.open("#{dir}/#{uploaded_io.original_filename}",'w') do |file|
             file.binmode
-            uploaded_io = params[k]
             file.write(uploaded_io.read)
-            parameters+=file.path
+            parameters+=" " + file.path
           end
         end
       else
@@ -154,12 +154,12 @@ class ScriptsController < ApplicationController
       end
     end
 
-    puts parameters
-
     authorize! :run, @script
     path="#{Rails.root}/data/#{@script.path}"
     beginning = Time.now
     data=`#{path} #{parameters} 2>&1 &!`
+
+    FileUtils.remove_entry_secure dir unless dir.nil?
     time=Time.now-beginning
 
     require 'redcarpet'
