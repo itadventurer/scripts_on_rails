@@ -123,6 +123,12 @@ class ScriptsController < ApplicationController
     self.crumb
     @script = @project.scripts.find(params[:script_id])
     parameters=''
+    user_params={}
+    @project.members.find_by_user_id(current_user.id).vars.split(',').each do |v|
+      v=v.split(':')
+      user_params[v[0]]=v[1] if v.length==2
+    end
+    puts user_params
     @script.getParams.each do |key,type|
       parameters+=' --' + key.gsub(/[^a-zA-Z_]/u,'') + '='
       k=key.to_sym
@@ -132,7 +138,7 @@ class ScriptsController < ApplicationController
           parameters+=params[k] 
         end
       when 'user'
-        parameters+=@project.members.find_by_user_id(current_user.id).vars
+        parameters+=user_params[key] unless user_params[key].nil?
       when 'file'
         if (not params[k].nil?) and params[k]!=""
           require 'tempfile'
