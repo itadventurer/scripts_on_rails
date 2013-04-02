@@ -10,6 +10,16 @@ module ApplicationHelper
     end
   end
 
+
+  def shorten(txt)
+    splitted=txt.split("\n")
+    if(splitted.length>1)
+      return splitted.first + "\n\n..."
+    else
+      txt
+    end
+  end
+
   # Helper für die Umleitung auf eine „Sie haben keine Rechte“–Seite
   def have_no_rights(message)
     flash[:error]=I18n.t(message)

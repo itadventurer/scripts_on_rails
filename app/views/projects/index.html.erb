@@ -4,7 +4,7 @@
   <hr />
   <div>
     <h3><%= link_to project.name, project %></h3>
-    <p><%= md project.description %></p>
+    <p><%= md shorten(project.description) %></p>
     <small class="muted"><%= t 'projects.language'%>: <%= project.language.name %></small>
     <div class="btn-group">
       <%=link_to project_path(project), class:"btn" do %>
