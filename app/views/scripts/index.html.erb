@@ -6,14 +6,17 @@
       <i class="icon-pencil"></i>
     <% end %>
   <% end %>
+  <% if can? :destroy, @project %>
+    <%=link_to project_path(@project), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
+      <i class="icon-trash"></i>
+    <% end %>
+  <% end %>
   <% if can? :read, @project %>
     <%=link_to project_members_path(@project), class:"btn" do %>
       <i class="icon-user"></i>
     <% end %>
-  <% end %>
-  <% if can? :destroy, @project %>
-    <%=link_to project_path(@project), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
-      <i class="icon-trash"></i>
+    <%=link_to edit_project_member_path(@project,@project.members.find_by_user_id(current_user.id)), class:"btn btn-primary" do %>
+      <i class="icon-user"></i> <%= t('members.edit_vars') %>
     <% end %>
   <% end %>
   <% if(can? :create, (@scripts.first || Script)) %>

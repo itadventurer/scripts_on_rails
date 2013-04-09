@@ -122,6 +122,7 @@ class ScriptsController < ApplicationController
     @project=Project.find(params[:project_id])
     self.crumb
     @script = @project.scripts.find(params[:script_id])
+    authorize! :run, @script
     parameters=''
     user_params={}
     @project.members.find_by_user_id(current_user.id).vars.split(',').each do |v|
@@ -154,7 +155,6 @@ class ScriptsController < ApplicationController
       end
     end
 
-    authorize! :run, @script
     path="#{Rails.root}/data/#{@script.path}"
     beginning = Time.now
     data=`#{path} #{parameters} 2>&1 &!`

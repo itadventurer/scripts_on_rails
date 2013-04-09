@@ -27,6 +27,7 @@ en:
     create_yes: "Yes"
     create_no: "No"
     vars: "Add Custom Vars\n Format: [name:content],[name:content]..."
+    edit_vars: "Edit your User-vars"
   scripts:
     new: "New Script"
     all: "Scripts"
