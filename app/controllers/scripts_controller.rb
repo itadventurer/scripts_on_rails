@@ -125,9 +125,11 @@ class ScriptsController < ApplicationController
     authorize! :run, @script
     parameters=''
     user_params={}
-    @project.members.find_by_user_id(current_user.id).vars.split(',').each do |v|
-      v=v.split(':')
-      user_params[v[0]]=v[1] if v.length==2
+    unless @project.members.find_by_user_id(current_user.id).vars.nil?
+      @project.members.find_by_user_id(current_user.id).vars.split(',').each do |v|
+        v=v.split(':')
+        user_params[v[0]]=v[1] if v.length==2
+      end
     end
     dir=nil # Delete the directory when finish the script execution
     @script.getParams.each do |key,type|
