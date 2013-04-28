@@ -117,6 +117,10 @@ class ScriptsController < ApplicationController
     add_crumb @script.name, project_script_path(@project,@script)
     add_crumb I18n.t('scripts.run'), edit_project_script_path(@project,@script)
     authorize! :run, @script
+    @extraParams={}
+    @script.getParams.each do |key,type|
+      @script[key]=params[key] unless params[key].nil?
+    end
   end
   def exec
     @project=Project.find(params[:project_id])

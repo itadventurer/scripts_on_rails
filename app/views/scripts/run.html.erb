@@ -22,7 +22,7 @@
   <% if type=='file' %>
  <input type="file" class="param_<%=type%> param" id="param_<%=name%>" name="<%=name%>"/>
  <% else %>
- <input type="text" class="param_<%=type%> param" id="param_<%=name%>" name="<%=name%>"/>
+ <input type="text" class="param_<%=type%> param" id="param_<%=name%>" name="<%=name%>" value="<%= @script[name] %>"/>
  <% end %>
  <% end %>
 <% end %>
