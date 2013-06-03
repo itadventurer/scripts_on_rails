@@ -37,7 +37,7 @@
     <a href="#" id="nav-md"><%= t 'scripts.run_md' %></a>
   </li>
 </ul>
-<pre id="run-raw">running...</pre>
+<pre id="run-raw">Click on the run button</pre>
 <div id="run-md">running...</div>
 <dl>
   <dd><%=t('scripts.exec_time')%>:</dd>
@@ -59,7 +59,7 @@ $('#run-md').html(data.markdown);
 $('#run_time').text(data.time + ' s');
 }
 });
-    $("#run-form").submit();
+//    $("#run-form").submit();
     $('#rerun').click(function(){
       $("#run-form").submit();
       });
