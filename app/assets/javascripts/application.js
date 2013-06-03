@@ -15,7 +15,9 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require js-routes
-//= require_tree .
+//= require ace/ace.js
+//= require script.js
+//= require_tree ./vendor/
 
 $.datepicker.setDefaults({
   dateFormat:"yy-mm-dd"
