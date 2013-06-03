@@ -8,44 +8,50 @@
   </div>
 <% end %>
 
-
-<% @members.each do |member| %>
-  <hr />
-  <div>
-    <h3><%= getName(member.user) %></h3>
-    <dl>
-      <dt><%=t('members.is_admin') %></dt>
-      <dd><%= 
-      if member.is_admin?  
-        t('members.admin_yes')  
-      else  
-        t('members.admin_no')  
-      end
-      %></dd>
-      <dt><%=t('members.can_create') %></dt>
-      <dd><%= 
+<table class="table table-striped">
+  <thead>
+    <th><%=t('members.name')%></th>
+    <th><%=t('members.is_admin')%></th>
+    <th><%=t('members.can_create')%></th>
+    <th><%=t('members.user_vars')%></th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><%= getName(member.user) %></td>
+        <td><%= 
+        if member.is_admin?  
+          t('members.admin_yes')  
+        else  
+          t('members.admin_no')  
+        end
+        %></td>
+      <td><%= 
       if member.can_create?  
         t('members.create_yes')  
       else  
         t('members.create_no')  
       end
-      %></dd>
-      <% if can? :view_vars, member %>
-        <dt><%=t('members.user_vars')%></dt>
-        <dd><%= member.vars %></dd>
-      <% end %>
-    </dl>
-    <div class="btn-group">
-      <% if can? :update, member %>
-        <%=link_to edit_project_member_path(@project,member), class:"btn" do %>
-          <i class="icon-pencil"></i>
+      %></td>
+    <% if can? :view_vars, member %>
+      <td><%= member.vars %></td>
+    <% end %>
+    <td>
+      <div class="btn-group">
+        <% if can? :update, member %>
+          <%=link_to edit_project_member_path(@project,member), class:"btn" do %>
+            <i class="icon-pencil"></i>
+          <% end %>
         <% end %>
-      <% end %>
-      <% if can? :destroy, member %>
-        <%=link_to project_member_path(@project,member), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
-          <i class="icon-trash"></i>
+        <% if can? :destroy, member %>
+          <%=link_to project_member_path(@project,member), method: :delete, data: {confirm: t('misc.sure?')}, class:"btn" do %>
+            <i class="icon-trash"></i>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
-  </div>
+      </div>
+    </td>
+  </tr>
 <% end %>
+  </tbody>
+</table>
