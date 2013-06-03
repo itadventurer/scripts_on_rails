@@ -22,7 +22,6 @@ textarea {
   margin:10px 0;
 }
 #run-md {
-  display:none;
   padding: 8.5px;
   margin: 0 0 9px;
   font-size: 12.025px;
@@ -33,6 +32,9 @@ textarea {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+}
+#run-raw {
+  display:none;
 }
 .edited {
   display:none;
