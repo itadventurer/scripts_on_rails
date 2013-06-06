@@ -39,7 +39,7 @@ class Script < ActiveRecord::Base
 
     txt.lines.each do |line|
       nline=line
-      inc=nline.scan(/^#!include (.*)/)
+      inc=nline.scan(/^#!include (.*)/i)
       if(inc.length!=0)
         inc=inc[0][0].strip
         include_script=self.project.scripts.find_by_name(inc)
