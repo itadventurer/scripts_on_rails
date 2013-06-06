@@ -163,7 +163,7 @@ class ScriptsController < ApplicationController
 
     path="#{Rails.root}/data/#{@script.path}"
     beginning = Time.now
-    data=`#{path} #{parameters} 2>&1 &!`
+    data=`#{path} #{parameters} 2>&1`
 
     FileUtils.remove_entry_secure dir unless dir.nil?
     time=Time.now-beginning

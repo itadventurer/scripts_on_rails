@@ -15,7 +15,6 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require js-routes
-//= require ace/ace.js
 //= require script.js
 //= require_tree ./vendor/
 
