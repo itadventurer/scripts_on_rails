@@ -63,6 +63,8 @@ class Script < ActiveRecord::Base
   end
 
   def save_file
+    print self.params.lines
+    self.params=self.params.lines.map(&:strip) * ','
     if(self.path=='' || self.path==nil)
       o =  [('a'..'z'),('A'..'Z')].map{|i| i.to_a}.flatten
       self.path =  (0...5).map{ o[rand(o.length)] }.join
