@@ -35,7 +35,7 @@ en:
     run: "Run"
     return: "Return"
     exec_time: "Exec time"
-    rerun: "Rerun"
+    rerun: "Run"
     run_raw: "Raw"
     run_md: "Markdown"
     params: "Params"
