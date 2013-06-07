@@ -31,10 +31,16 @@ class Project < ActiveRecord::Base
     presence:true 
 
   before_destroy :recursive_destroy
+  after_create :create_dirs
 
   def recursive_destroy
     self.scripts.each { |s| s.destroy }
     self.members.each { |m| m.destroy }
+    `rm -r public/data/#{self.id} data/scriptdata/#{self.id}`
+  end
+
+  def create_dirs
+    `mkdir  public/data/#{self.id}/ data/scriptdata/#{self.id}`
   end
 
 end
