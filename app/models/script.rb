@@ -53,7 +53,7 @@ class Script < ActiveRecord::Base
         line=line.to_s.sub(/##private_data_path##/i,"data/scriptdata/#{pname}/")
         line=line.to_s.sub(/##script_name##/i,self.name);
         line=line.to_s.sub(/##project_name##/i,self.project.name);
-        line=line.to_s.sub(/##public_data_url##/i,$request.protocol + $request.env['HTTP_HOST'] + "/public/data/#{pname}/")
+        line=line.to_s.sub(/##public_data_url##/i,$request.protocol + $request.env['HTTP_HOST'] + "/data/#{pname}/")
         out.append line
       end
 
