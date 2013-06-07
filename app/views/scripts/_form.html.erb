@@ -41,7 +41,7 @@
       </dl>
       <%= link_to '#', id: 'ide-fullscreen', class: 'btn' do %>
         <i class="icon-fullscreen"></i> <%= t('scripts.fullscreen') %>
-      <% end %>
+      <% end unless @script.id.nil? %>
       <div id="editor"><%=@script.code%></div>
       <input type="hidden" value="" name="script[code]" id="code"/>
     </div>
@@ -64,7 +64,7 @@
         <%= link_to project_script_path(@project,script), script_id:script.id, id: "script_" + script.id.to_s()  do %>
           <%= script.name %>
           <span class="edited">*</span>
-        <% end %>
+      <% end unless @script.id.nil? %>
         </li>
       <% end %>
       <li class="pull-right"><a href="#" id="ide-close"><i class="icon-remove"></i> <%= t 'scripts.ide.close' %></a></li>
