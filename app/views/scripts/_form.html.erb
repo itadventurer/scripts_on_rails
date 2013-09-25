@@ -17,6 +17,11 @@
     <span class="help-inline"><%= t('scripts.help.name') %></span>
   </div>
   <div class="field">
+    <%= f.label :filename %>
+    <%= f.text_field :filename %>
+    <span class="help-inline"><%= t('scripts.help.filename') %></span>
+  </div>
+  <div class="field">
     <%= f.label :description %>
     <span class="help-block"><%= t('scripts.help.description') %></span>
     <%= f.text_area :description %>
@@ -26,82 +31,7 @@
     <%= f.text_area :params, style: "width:250px;height:100px" %>
     <span class="help-block"><%= simple_format t('scripts.help.params') %></span>
   </div>
-  <div class="field">
-    <%= f.label :code %>
-    <span class="help-block"><%= t('scripts.help.code') %></span>
-    <dl>
-      <dt>How to include other scripts?</dt>
-      <dd><pre>#!INCLUDE [script-name]</pre></dd>
-      <dt>How to get paths to save some data?</dt>
-      <dd><pre>##PUBLIC_DATA_PATH##</pre> and <pre>##PRIVATE_DATA_PATH##</pre></dd>
-      <dt>Need some names?</dt>
-      <dd><pre>##SCRIPT_NAME##</pre> and <pre>##PROJECT_NAME##</pre></dd>
-      <dt>URL to public path:</dt>
-      <dd><pre>##PUBLIC_DATA_URL##</pre></dd>
-      </dl>
-      <%= link_to '#', id: 'ide-fullscreen', class: 'btn' do %>
-        <i class="icon-fullscreen"></i> <%= t('scripts.fullscreen') %>
-      <% end unless @script.id.nil? %>
-      <div id="editor"><%=@script.code%></div>
-      <input type="hidden" value="" name="script[code]" id="code"/>
-    </div>
-    <hr />
-    <div class="actions" style="margin-top:500px">
-      <%= f.submit class: 'btn',id:'submit' %>
-    </div>
-  <% end %>
-
-
-  <!-- "IDE" -->
-
-  <div id="ide">
-    <ul id="ide-nav" class="nav nav-tabs">
-      <% 
-        @project.scripts.each do |script|
-          next if script.name.nil?
-        %>
-        <li class="<%= "active" if (script.name == @script.name) %> script">
-        <%= link_to project_script_path(@project,script), script_id:script.id, id: "script_" + script.id.to_s()  do %>
-          <%= script.name %>
-          <span class="edited">*</span>
-      <% end unless @script.id.nil? %>
-        </li>
-      <% end %>
-      <li class="pull-right"><a href="#" id="ide-close"><i class="icon-remove"></i> <%= t 'scripts.ide.close' %></a></li>
-      <li class="pull-right"><a href="#" id="ide-run"><i class="icon-play"></i> <%= t 'scripts.ide.run' %></a></li>
-      <li class="pull-right"><a href="#" id="ide-save"><i class="icon-hdd"></i> <%= t 'scripts.ide.save' %></a></li>
-      <li class="pull-right"><a href="#" id="ide-save-all"><i class="icon-hdd"></i> <%= t 'scripts.ide.save_all' %></a></li>
-    </ul>
-    <div id="ide-editor"><%=@script.code%></div>
-    <div id="ide-console">
-      <h3><%= t 'scripts.ide.console' %>
-        <small><a href="#" id="ide-clean"><i class="icon-trash"></i> <%= t 'scripts.ide.clean' %></a></small>
-      </h3>
-      <span id="ide-console-content"></span>
-    </div>
+  <div class="actions">
+    <%= f.submit %>
   </div>
-
-  <!-- JS -->
-
-
-  <script type="text/javascript">
-    var script_id=<%=@script.id || 0%>;
-    var project_id=<%=@project.id%>;
-    var editor=ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.setHighlightActiveLine(false);  
-    editor.getSession().setMode("ace/mode/<%=@project.language.name%>");
-    <%=@project.language.editor_config%>
-    $(function(){
-        $('#myform').submit(function(){
-          $('#code').val(editor.getValue());
-          });
-
-        });
-//IDE
-var ide_editor=ace.edit("ide-editor");
-ide_editor.setTheme("ace/theme/monokai");
-ide_editor.getSession().setMode("ace/mode/<%=@project.language.name%>");
-ide_editor.setHighlightActiveLine(false);
-<%=@project.language.editor_config%>
-</script>
+<% end %>

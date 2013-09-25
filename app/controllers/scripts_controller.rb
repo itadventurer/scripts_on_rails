@@ -31,6 +31,12 @@ class ScriptsController < ApplicationController
     @script = @project.scripts.find(params[:id])
     add_crumb @script.name, project_script_path(@project,@script)
     authorize! :show, @script
+    filename=APP_CONFIG['git_path'] + @project.name + "/" + @script.filename
+    if File.exists? filename
+        @script.code=File.read filename
+    else
+        @script.code="File not found!"
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -161,7 +167,7 @@ class ScriptsController < ApplicationController
       end
     end
 
-    path="#{Rails.root}/data/#{@script.path}"
+    path="#{Rails.root}/" + APP_CONFIG['git_path'] + @project.name + "/" + @script.filename
     beginning = Time.now
     data=`#{path} #{parameters} 2>&1`
 

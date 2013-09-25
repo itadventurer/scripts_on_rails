@@ -1,0 +1,11 @@
+defaults: &defaults
+  git_path: git/
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
