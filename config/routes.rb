@@ -1,6 +1,10 @@
 ScriptsOnRails::Application.routes.draw do
 
 
+  get "git/pull"
+
+  get "git/log"
+
   resources :languages
   scope 'admin' do
     resources :users

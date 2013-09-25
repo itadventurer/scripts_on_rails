@@ -143,6 +143,7 @@ class ScriptsController < ApplicationController
     end
     dir=nil # Delete the directory when finish the script execution
     @script.getParams.each do |key,type|
+      key="" if key.nil?
       parameters+=' --' + key.gsub(/[^a-zA-Z_]/u,'') + '='
       k=key.to_sym
       case type
@@ -167,9 +168,13 @@ class ScriptsController < ApplicationController
       end
     end
 
-    path="#{Rails.root}/" + APP_CONFIG['git_path'] + @project.name + "/" + @script.filename
+    path=@script.getPath
     beginning = Time.now
-    data=`#{path} #{parameters} 2>&1`
+    if path.exist?
+      data=`#{path.realpath} #{parameters} 2>&1`
+    else
+      data="File not found!"
+    end
 
     FileUtils.remove_entry_secure dir unless dir.nil?
     time=Time.now-beginning

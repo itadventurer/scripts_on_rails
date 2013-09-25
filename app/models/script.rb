@@ -27,6 +27,16 @@ class Script < ActiveRecord::Base
     presence: true
 
 
+  # After Save
+  before_save :fixFile
+
+  def fixFile
+    pathname=getPath
+    if pathname.exist?
+        self.filename=File.basename(pathname.realpath)
+        `chmod +x #{pathname.realpath}`
+    end
+  end
 
   def getParams
     ret={}
@@ -37,5 +47,9 @@ class Script < ActiveRecord::Base
       ret[parray[0]]=parray[1]
     end
     ret
+  end
+
+  def getPath
+    Pathname.new ("#{Rails.root}/" + APP_CONFIG['git_path'] + self.project.name + "/" + self.filename)
   end
 end
