@@ -1,7 +1,21 @@
-== Scripts on Rails
-It's a simple Web-Application to manage and run scripts on a server.
+# Scripts on Rails
+SoR is made for people, who write scripts and want to give users the possibility to run it easily on a server. For example it is usefull if you work with people, who has no IT-knowledge and they had to do everyday-annoying-work. So you can write some scripts and upload it to SoR and the people can execute them (with parameters) and are happy ;)
 
-== Demo Application
+SoR supports now **git**. So you can write your files offline and push it to your git-server. After this SoR can pull it from there. 
+
+# Basic Setup
+
+1. Install git, ruby and rails on the server
+
+2. Setup SoR: 
+
+```bash
+git clone git@github.com:azapps/scripts_on_rails.git 
+bundle # Install needed gems
+bundle exec rake db:migrate # Migrate the database
+```
+
+# Demo Application
 
 Here you can test it:
 
@@ -13,7 +27,7 @@ Here you can test it:
 
 
 
-== License
+# License
 
 (MIT License)
 
