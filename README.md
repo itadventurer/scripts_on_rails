@@ -10,10 +10,18 @@ SoR supports now **git**. So you can write your files offline and push it to you
 2. Setup SoR: 
 
 ```bash
-git clone git@github.com:azapps/scripts_on_rails.git 
+git clone git@github.com:azapps/scripts_on_rails.git
+cd scripts_on_rails
 bundle # Install needed gems
 bundle exec rake db:migrate # Migrate the database
+
+git clone YOURGIT git # Clone your git into the git-directory
+rails server # Start the server on port 3000
 ```
+
+**That's all – relax and have fun**
+
+If you have questions, don't hesitate and ask me.
 
 # Demo Application
 
