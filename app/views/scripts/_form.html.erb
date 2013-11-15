@@ -31,7 +31,44 @@
     <%= f.text_area :params, style: "width:250px;height:100px" %>
     <span class="help-block"><%= simple_format t('scripts.help.params') %></span>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  
+  <div class="field">
+    <%= f.label :code %>
+    <span class="help-block"><%= t('scripts.help.code') %></span>
+      <%= link_to '#', id: 'ide-fullscreen', class: 'btn' do %>
+        <i class="icon-fullscreen"></i> <%= t('scripts.fullscreen') %>
+      <% end unless @script.id.nil? %>
+      <div id="editor"><%=@script.get_code%></div>
+      <input type="hidden" value="" name="git[code]" id="code"/>
+    </div>
+    <hr />
+    <div class="actions" style="margin-top:500px">
+      <div class="field">
+        <%= f.label :commit_message %>
+        <input type="text" placeholder="Update <%=@script.filename%>" name="git[message]"/>
+      </div>
+    <%= f.submit class: 'btn',id:'submit' %>
+    </div>
+
+  <script type="text/javascript">
+    var script_id=<%=@script.id || 0%>;
+    var project_id=<%=@project.id%>;
+    var editor=ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.setHighlightActiveLine(false);  
+    editor.getSession().setMode("ace/mode/<%=@project.language.name%>");
+    <%=@project.language.editor_config%>
+    $(function(){
+        $('#myform').submit(function(){
+          $('#code').val(editor.getValue());
+          });
+    
+        });
+    //IDE
+    var ide_editor=ace.edit("ide-editor");
+    ide_editor.setTheme("ace/theme/monokai");
+    ide_editor.getSession().setMode("ace/mode/<%=@project.language.name%>");
+    ide_editor.setHighlightActiveLine(false);
+    <%=@project.language.editor_config%>
+  </script>
 <% end %>

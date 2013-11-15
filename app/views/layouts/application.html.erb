@@ -6,6 +6,7 @@
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="icon" href="/favicon.png" type="image/png" />
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -31,6 +32,10 @@
           <%= yield %>
         </div>
       </div>
+    <div id="footer">
+    ScriptOmat is free software licensed by <a href="http://www.gnu.org/licenses/gpl.html">GPL3</a>. The sourcecode is freely available on <a href="https://github.com/azapps/scripts_on_rails">Github</a>.
+    <span class="right">&copy; 2013 <a href="http://azapps.de">Anatoly Zelenin</a></span>
+    </div>
     </div>
 
   </body>

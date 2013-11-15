@@ -6,7 +6,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to t('misc.appname'), root_path, class: "brand" %>
+      <%= link_to root_path, class: "brand" do %>
+      <img src="/favicon.png" width="20" height="20" /> ScriptOmat
+      <% end %>
       <% if user_signed_in? %>
         <div class="nav-collapse collapse pull-left">
           <ul class="nav">
