@@ -171,7 +171,7 @@ class ScriptsController < ApplicationController
     path=@script.getPath
     beginning = Time.now
     if path.exist?
-      data=`#{path.realpath} #{parameters} 2>&1`
+      data=`PYTHONPATH=/var/www/scripts_on_rails_new/git/lib '#{path.realpath}' #{parameters} 2>&1`
     else
       data="File not found!"
     end
