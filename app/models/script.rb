@@ -54,6 +54,7 @@ class Script < ActiveRecord::Base
     Pathname.new ("#{Rails.root}/" + APP_CONFIG['git_path'] + self.project.name + "/" + self.filename)
   end
   def get_code
+    return "" if self.new_record?
     filepath=APP_CONFIG['git_path'] + self.project.name + "/" + self.filename
     if File.exists? filepath
         code=File.read filepath
