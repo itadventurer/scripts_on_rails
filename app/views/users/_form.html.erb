@@ -36,6 +36,20 @@
     <%= f.label :is_admin %>
     <%= f.check_box :is_admin %>
   </div>
+
+  <div class="field">
+  <h3>Projects</h3>
+  <ul>
+  <% @projects.each do |project| %>
+    <li>
+    <% print project %>
+      <input type="checkbox" name="project_id[]" <% if project.in?(@user.projects) %>checked="checked"<% end %> value="<%=project.id%>" id="project_id_<%=project.id%>" />
+      <label style="display:inline" for="project_id_<%=project.id%>"><%=project.name%></label>
+    </li>
+  <% end %>
+  </ul>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

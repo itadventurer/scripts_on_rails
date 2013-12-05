@@ -27,6 +27,7 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
+    @projects=Project.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,6 +38,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    @projects=Project.all
   end
 
   # POST /users
@@ -59,7 +61,17 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
+    @projects=Project.all
+    unless params[:project_id].nil? 
+      @user.members.destroy_all
+      params[:project_id].each do |project_id| 
+        @user.members.create(user_id: @user.id,project_id: project_id, is_admin: false, can_create: false)
+      end
+    end
+    if params[:user][:password].empty?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
