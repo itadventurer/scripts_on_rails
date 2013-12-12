@@ -57,17 +57,24 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_project_properties(user)
+    unless params[:project_id].nil? 
+      @user.members.destroy_all
+      params[:project_id].each do |project_id| 
+        member=@user.members.create(user_id: @user.id,project_id: project_id, is_admin: false, can_create: false)
+        member.is_admin=true if not params[:project_admin].nil? and project_id.in?(params[:project_admin])
+        member.can_create=true if not params[:project_can_create].nil? and project_id.in?(params[:project_can_create])
+        member.save
+      end
+    end
+  end
+
   # PUT /users/1
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
     @projects=Project.all
-    unless params[:project_id].nil? 
-      @user.members.destroy_all
-      params[:project_id].each do |project_id| 
-        @user.members.create(user_id: @user.id,project_id: project_id, is_admin: false, can_create: false)
-      end
-    end
+    update_project_properties(@user)
     if params[:user][:password].empty?
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)

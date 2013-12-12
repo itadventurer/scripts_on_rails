@@ -39,15 +39,33 @@
 
   <div class="field">
   <h3>Projects</h3>
-  <ul>
-  <% @projects.each do |project| %>
-    <li>
-    <% print project %>
-      <input type="checkbox" name="project_id[]" <% if project.in?(@user.projects) %>checked="checked"<% end %> value="<%=project.id%>" id="project_id_<%=project.id%>" />
-      <label style="display:inline" for="project_id_<%=project.id%>"><%=project.name%></label>
+  <table>
+    <thead>
+      <tr>
+        <th>Project</th>
+        <th>Member</th>
+        <th>Admin</th>
+        <th>Can create?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <th><%=project.name%></th>
+          <td style="text-align:center">
+            <input type="checkbox" name="project_id[]" <% if project.in?(@user.projects) %>checked="checked"<% end %> value="<%=project.id%>" />
+          </td>
+          <td style="text-align:center">
+            <input type="checkbox" name="project_admin[]" <% if @user.is_admin_of(project) %>checked="checked"<% end %> value="<%=project.id%>"/>
+          </td>
+          <td style="text-align:center">
+            <input type="checkbox" name="project_can_create[]" <% if @user.can_create(project) %>checked="checked"<% end %> value="<%=project.id%>"/>
+          </td>
+        </tr>
     </li>
   <% end %>
-  </ul>
+    </tbody>
+  </table>
   </div>
 
   <div class="actions">

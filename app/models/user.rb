@@ -36,4 +36,15 @@ class User < ActiveRecord::Base
   
   has_many  :members
   has_many :projects, through: :members
+
+  def can_create(project)
+    return false unless project.in?(self.projects)
+    member=self.members.find_by_project_id(project.id)
+    return member.can_create
+  end
+  def is_admin_of(project)
+    return false unless project.in?(self.projects)
+    member=self.members.find_by_project_id(project.id)
+    return member.is_admin
+  end
 end
