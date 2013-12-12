@@ -23,16 +23,22 @@ rails server # Start the server on port 3000
 
 If you have questions, don't hesitate and ask me.
 
-# Demo Application
+# Setup in production environment
 
-Here you can test it:
+I've wrote a blog entry (german) where I've described how to setup a Debian system with Apache to run a Rails application: http://azapps.de/blog/2013/01/03/phusion-passenger-und-apache-mit-debian/
 
-* http://sor.azapps.de
-* User: test@example.com
-* Password: test1234
+# How to modify stuff
 
-(Please do not change the password)
+This is a ruby-on rails application. So it has the following directory structure:
+- /app/ This is the main folder. If you want to change something you should take a look in here
+  - /controllers/ Here is the logic of everything. You have for every part of the site a controller.
+  - /models/ Here are the models. The models store data
+  - /views/ Here you can change the html-templates
+- /git/ This is the directory where the git-repository is stored
 
+There are some other locations but you should not change there anything unless you know what you are doing.
+
+If you want to modify the text on the start page then look in this file: `config/locales/en.yml`. There are the strings stored.
 
 
 # License
