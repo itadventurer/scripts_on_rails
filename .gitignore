@@ -32,3 +32,4 @@ db/*.yml
 data/*
 public/assets/*
 /git/
+/public/data/
