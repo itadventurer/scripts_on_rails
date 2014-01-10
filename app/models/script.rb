@@ -62,11 +62,13 @@ class Script < ActiveRecord::Base
         code="File not found!"
     end
   end 
-  def update_code(new_code,commit_message)
+  def update_code(new_code,commit_message,new=false)
     `git pull`
     filepath=APP_CONFIG['git_path'] + self.project.name + "/" + self.filename
-    return if new_code==self.get_code
+    return if new_code==self.get_code and not new
     new_code=new_code.gsub(/\r\n?/, "\n") # This is not awesome…
+    `git add #{filepath}`
+    `chmod a+x #{filepath}`
     File.open(filepath, 'w') { |file| file.write(new_code) }
     commit_message="Update #{self.filename}" if commit_message.empty?
     `cd #{APP_CONFIG['git_path']} && git commit -am "#{commit_message}" 2>&1 && git push`

@@ -68,6 +68,7 @@ class ScriptsController < ApplicationController
   def create
     @project=Project.find(params[:project_id])
     @script = @project.scripts.new(params[:script])
+    @script.update_code(params[:git][:code],params[:git][:message],true)
 
     respond_to do |format|
       if @script.save
